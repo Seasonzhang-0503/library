@@ -26,28 +26,56 @@ class theBook(models.Model):
         return str(self.theBook_id,self.theBook_name)
 
 
-class subject(models.Model):
-    sid = models.AutoField(primary_key=True)
-    subject_id = models.CharField(max_length=500,verbose_name=('图书编号'),blank=True, null=True,)
-    subject_name = models.CharField(max_length=500,verbose_name=('图书名称'),blank=True, null=True,)
+class category(models.Model):
+    cid = models.AutoField(primary_key=True)
+    category_id = models.CharField(max_length=500,verbose_name=('主题编号'),blank=True, null=True,)
+    category_keyname = models.CharField(max_length=500,verbose_name=('主题主名称'),blank=True, null=True,)
+    category_subname = models.CharField(max_length=500,verbose_name=('主题子名称'),blank=True, null=True,)
+
 
     class Meta:
         verbose_name = ('分类')
         verbose_name_plural = ('分类')
 
     def __str__(self):
-        return str(self.subject_id,self.subject_name)
+        return str(self.category_id,self.category_keyname,self.category_subname)
 
 
 
 class borrow(models.Model):
     boid = models.AutoField(primary_key=True)
-    borrow_datetime = models.DateTimeField(max_length=500,verbose_name=('图书编号'),blank=True, null=True,)
-    borrow_datetime = models.CharField(max_length=500,verbose_name=('图书名称'),blank=True, null=True,)
+    borrow_datetime = models.DateTimeField(max_length=500,verbose_name=('借订编号'),blank=True, null=True,)
+    borrow_theUser = models.CharField(max_length=500,verbose_name=('借订用户'),blank=True, null=True,)
+    borrow_theBook = models.CharField(max_length=500,verbose_name=('借订图书'),blank=True, null=True,)
+    borrow_status1 = models.CharField(max_length=500,verbose_name=('借订状态1'),blank=True, null=True,)
+    borrow_status2 = models.CharField(max_length=500,verbose_name=('借订状态2'),blank=True, null=True,)
+    borrow_status3 = models.CharField(max_length=500,verbose_name=('借订状态3'),blank=True, null=True,)
 
     class Meta:
-        verbose_name = ('借定')
-        verbose_name_plural = ('借定')
+        verbose_name = ('借订')
+        verbose_name_plural = ('借订')
 
     def __str__(self):
         return str(self.subject_id,self.subject_name)
+    
+
+
+
+class theUser(models.Model):
+    uid = models.AutoField(primary_key=True)
+    theUser_id = models.CharField(max_length=500,verbose_name=('用户ID'),blank=True, null=True,)
+    theUser_name = models.CharField(max_length=500,verbose_name=('用户名称'),blank=True, null=True,)
+    theUser_logo = models.ImageField(max_length=500, blank=True, null=True, verbose_name=('用户LOGO'),upload_to='images')
+    theUser_password = models.CharField(max_length=500,verbose_name=('用户密码'),blank=True, null=True,)
+    theUser_status1 = models.CharField(max_length=500,verbose_name=('用户状态1'),blank=True, null=True,)
+    theUser_status2 = models.CharField(max_length=500,verbose_name=('用户状态2'),blank=True, null=True,)
+    theUser_status3 = models.CharField(max_length=500,verbose_name=('用户状态3'),blank=True, null=True,)
+
+
+    class Meta:
+        verbose_name = ('自定义用户')
+        verbose_name_plural = ('自定义用户')
+
+    def __str__(self):
+        return str(self.subject_id,self.subject_mainname,self.subject_subname)
+
