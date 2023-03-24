@@ -1,5 +1,19 @@
 from django.db import models
+from django import forms
+from django.forms import ModelForm
 
+class location(models.Model):
+    lid = models.AutoField(primary_key=True)
+    location_city = models.CharField(max_length=500,verbose_name=('城市'),blank=True, null=True,)
+    location_name = models.CharField(max_length=500,verbose_name=('地点名称'),blank=True, null=True,)
+
+
+    class Meta:
+        verbose_name = ('地点')
+        verbose_name_plural = ('地点')
+
+    def __str__(self):
+        return str(str(self.lid) + '--' + self.location_name)
 
 
 class category(models.Model):
@@ -14,35 +28,35 @@ class category(models.Model):
         verbose_name_plural = ('分类')
 
     def __str__(self):
-        return str(self.category_id,self.category_keyname,self.category_subname)
+        return str(self.category_id + '--' + self.category_keyname + '--' + self.category_subname)
 
 
-
+THEBOOK_TYPE = (('电子书', '电子书'), ('纸质书', '纸质书'))
 
 class theBook(models.Model):
     bid = models.AutoField(primary_key=True)
-    theBook_id = models.CharField(max_length=500,verbose_name=('图书编号'),blank=True, null=True,)
     theBook_name = models.CharField(max_length=500,verbose_name=('图书名称'),blank=True, null=True,)
-    theBook_location = models.CharField(max_length=500,verbose_name=('图书所在地'),blank=True, null=True,)
-    theBook_type = models.IntegerField(verbose_name=('图书类别'),blank=True, null=True,)
-    theBook_category = models.ForeignKey(category,blank=True, null=True, on_delete=models.CASCADE,related_name='theBook_category')
+    theBook_location = models.ForeignKey(location,blank=True, null=True, on_delete=models.CASCADE,related_name='Book_location')
+    theBook_type = models.CharField(max_length=500, verbose_name=('电子书/纸质书'),choices=THEBOOK_TYPE,blank=True, null=True,)
+    theBook_category = models.ForeignKey(category,blank=True, null=True, on_delete=models.CASCADE,related_name='Book_category')
     theBook_logo = models.ImageField(max_length=500, blank=True, null=True, verbose_name=('图书照片1'),upload_to='images')
-    theBook_attachment = models.FileField(max_length=10000,verbose_name=('图书附件'),blank=True, null=True,upload_to='file')
+    theBook_attachment = models.FileField(max_length=10000,verbose_name=('图书附件(备用)'),blank=True, null=True,upload_to='file')
     theBook_status1 = models.CharField(max_length=500,verbose_name=('图书状态1'),blank=True, null=True,)
-    theBook_status2 = models.CharField(max_length=500,verbose_name=('图书状态2'),blank=True, null=True,)
-    theBook_status3 = models.CharField(max_length=500,verbose_name=('图书状态3'),blank=True, null=True,)
+    theBook_status2 = models.CharField(max_length=500,verbose_name=('图书状态2(备用)'),blank=True, null=True,)
+    theBook_status3 = models.CharField(max_length=500,verbose_name=('图书状态3(备用)'),blank=True, null=True,)
+    theBook_id = models.CharField(max_length=500,verbose_name=('图书编号(备用)'),blank=True, null=True,)
     theBook_information1 = models.TextField(max_length=10000,verbose_name=('图书信息1'),blank=True, null=True,)
-    theBook_information2 = models.TextField(max_length=10000,verbose_name=('图书信息2'),blank=True, null=True,)
-    theBook_information3 = models.TextField(max_length=10000,verbose_name=('图书信息3'),blank=True, null=True,)
-    theBook_information4 = models.TextField(max_length=10000,verbose_name=('图书信息4'),blank=True, null=True,)
-    theBook_information5 = models.TextField(max_length=10000,verbose_name=('图书信息5'),blank=True, null=True,)
+    theBook_information2 = models.TextField(max_length=10000,verbose_name=('图书信息2(备用)'),blank=True, null=True,)
+    theBook_information3 = models.TextField(max_length=10000,verbose_name=('图书信息3(备用)'),blank=True, null=True,)
+    theBook_information4 = models.TextField(max_length=10000,verbose_name=('图书信息4(备用)'),blank=True, null=True,)
+    theBook_information5 = models.TextField(max_length=10000,verbose_name=('图书信息5(备用)'),blank=True, null=True,)
 
     class Meta:
         verbose_name = ('图书')
         verbose_name_plural = ('图书')
 
     def __str__(self):
-        return str(self.theBook_id,self.theBook_name)
+        return str(self.theBook_id+ '--' +self.theBook_name)
 
 
 
@@ -62,11 +76,13 @@ class theUser(models.Model):
         verbose_name_plural = ('自定义用户')
 
     def __str__(self):
-        return str(self.subject_id,self.subject_mainname,self.subject_subname)
+        return str(self.subject_id+ '--' +self.subject_mainname+ '--' +self.subject_subname)
 
 
-
-
+class categoryForm(ModelForm):
+    class Meta:
+        model = category
+        fields = '__all__'
 
 class borrow(models.Model):
     boid = models.AutoField(primary_key=True)
@@ -82,6 +98,6 @@ class borrow(models.Model):
         verbose_name_plural = ('借订')
 
     def __str__(self):
-        return str(self.subject_id,self.subject_name)
+        return str(self.subject_id+ '--' +self.subject_name)
     
 

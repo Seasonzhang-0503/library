@@ -15,7 +15,14 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from book import views
+from . import settings
+from django.conf.urls import url 
+from django.urls import re_path
+from django.views.static import serve
+from django.contrib.staticfiles.urls import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', views.categorylist, name='categorylist'),
 ]
