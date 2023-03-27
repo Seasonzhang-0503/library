@@ -19,7 +19,7 @@
                         <th scope="col">分类</th>
                         <th scope="col">图书照片</th>
                         <th scope="col">图书状态1</th>
-                        <th scope="col">theBook_id</th>
+                        <th scope="col">图书编号</th>
                         <th scope="col">操作</th>
                     </tr>
                 </thead>
@@ -27,12 +27,16 @@
                 {% for theBook in theBooklist %}
                 <tr valign="middle" style="color:Black;border-color:#E0E0E0;font-size:15px;"></tr>
                     <td>{{ theBook.bid }}</td>
-                    <td>{{ theBook.category_id }}</td>
-                    <td>{{ theBook.category_keyname }}</td>
-                    <td>{{ theBook.category_subname }}</td>
+                    <td>{{ theBook.theBook_name }}</td>
+                    <td>{{ theBook.theBook_location }}</td>
+                    <td>{{ theBook.theBook_type }}</td>
+                    <td>{{ theBook.theBook_category }}</td>
+                    <td>{{ theBook.theBook_logo }}</td>
+                    <td>{{ theBook.theBook_status1 }}</td>
+                    <td>{{ theBook.theBook_id }}</td>
                     <td>
-                        <a class="btn btn-primary btn-xs" href="/theBooklist_edit/{{ theBook.cid }}/">编辑</a>
-                        <a class="btn btn-danger btn-xs" href="/theBooklist_delete/{{ theBook.cid }}/">删除</a>
+                        <a class="btn btn-primary btn-xs" href="/theBooklist_edit/{{ theBook.bid }}/">编辑</a>
+                        <a class="btn btn-danger btn-xs" href="/theBooklist_delete/{{ theBook.bid }}/">删除</a>
                     </td>
                 </tr>
                 {% endfor %}

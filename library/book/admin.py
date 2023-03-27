@@ -29,3 +29,11 @@ class locationAdmin(admin.ModelAdmin):
     list_display = ('lid','location_city','location_name')
 
 admin.site.register(location,locationAdmin)
+
+
+
+class theBorrowAdmin(admin.ModelAdmin):
+
+    list_display = ('boid','theBorrow_datetime')
+
+admin.site.register(theBorrow,theBorrowAdmin)
