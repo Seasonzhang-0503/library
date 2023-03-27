@@ -122,9 +122,21 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
+# 通过url直接访问我在项目中的静态文件
 STATIC_URL = '/static/'
+# 部署静态文件时(pyhtonmanage.pycollectstatic)所有的静态文静聚合的目录
+STATIC_ROOT = os.path.join(BASE_DIR, "/static/")
+# STATICFILES_DIRS告诉django,首先到STATICFILES_DIRS里面寻找静态文件,其次再到各个app的static文件夹里面找
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, "static"),
+)
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+

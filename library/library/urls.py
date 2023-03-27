@@ -25,4 +25,13 @@ from django.contrib.staticfiles.urls import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.categorylist, name='categorylist'),
+    path('categorylist_show/', views.categorylist_show, name='categorylist_show'),
+    path('categorylist_new/', views.categorylist_new, name='categorylist_new'),
+    path('categorylist_edit/<int:cid>/', views.categorylist_edit,name='categorylist_edit'),
+
+    
+    ##　静态文件夹路由：读取"/static/"的数据
+    re_path('static/(?P<path>.*)', serve, {'document_root':settings.STATIC_ROOT},name='static'),
+    ##　媒体文件夹路由：读取"/static/"的数据
+    re_path('media/(?P<path>.*)', serve, {'document_root':settings.MEDIA_ROOT},name='media'),
 ]

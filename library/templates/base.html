@@ -7,7 +7,7 @@
         <meta charset="UTF-8">
         <title>
             {% block title_block %}
-            CI持续改善
+            图书管理
             {% endblock %}
         </title>
         <!--移动设备优先-->
@@ -42,85 +42,65 @@
 <body>
     {% block nav_block %}
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">CI持续改善</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
+        <a class="navbar-brand" href="#">图书管理</a>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <div class="navbar-nav">
-            <!--href="/"第一个字符是"/"-->
             <a class="nav-link text-body font-weight-bold" href="/" > 主页 </a>
-            <!-- {% if request.user.employeeuser.role == '初审人员' or request.user.employeeuser.role == '复审人员' or request.user.is_superuser %}
-            <a class="nav-link text-body font-weight-bold " href="/to_do_list/">待审核表单</a>
-            {% endif %} -->
 
-            <a class="nav-link text-body font-weight-bold " href="/employee_fill_suggestion_table/">合理化建议</a>
-            <!--a class="nav-link active" href="/add/">合理化建议-add</a-->
-            <!--li class="nav-item dropdown">
-                <a class="nav-link active dropdown-toggle" href="/list/" id="navbarDropdown" role="button" data-toggle="dropdown">
-                    审核
+            <li class="nav-item dropdown">
+                <a class="nav-link active font-weight-bold dropdown-toggle" href="/list/" id="navbarDropdown" role="button" data-toggle="dropdown">
+                    图书管理
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="/suggestion_list/">CI负责人审核</a>
+                    <a class="dropdown-item" href="/suggestion_list/">图书借订</a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="/dept_review_list/">主管审核</a>
+                    <a class="dropdown-item" href="/dept_review_list/">图书归还</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="/dept_review_list/">借订查询</a>
                 </div>
-            </li-->
+            </li>
 
-            {% if request.user.employeeuser.role == '初审人员' or request.user.is_superuser %}
-            <a class="nav-link  text-body font-weight-bold " href="/suggestion_list_query/" data-toggle="tooltip" data-placement="top" title="点击可待审核表单的更新状态">CI审核
-                {% if request.user.employeeuser.ci_should_review %}
-                    <span class="badge badge-secondary">
-                    {{ request.user.employeeuser.ci_should_review }}
-                    </span>
-                {% endif %}
-            </a>
-            {% endif %}
+            <a class="nav-link text-body font-weight-bold" href="/suggestionlist_by_employee_query/">数据看板</a>
 
-            {% if request.user.employeeuser.role == '初审人员' or request.user.employeeuser.role == '复审人员' or request.user.is_superuser %}
-            <a class="nav-link text-body font-weight-bold " href="/dept_review_list_query/" data-toggle="tooltip" data-placement="top" title="点击可待审核表单的更新状态">主管审核
-                {% if request.user.employeeuser.dept_should_review %}
-                    <span class="badge badge-secondary">
-                    {{ request.user.employeeuser.dept_should_review }} 
-                    </span>
-                {% endif %}
-            </a>
-            {% endif %}
+            <li class="nav-item dropdown">
+                <a class="nav-link active font-weight-bold dropdown-toggle" href="/list/" id="navbarDropdown" role="button" data-toggle="dropdown">
+                    维护基础数据
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="/suggestion_list/">图书维护</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="/dept_review_list/">读者维护</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="/dept_review_list/">借订维护</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="/dept_review_list/">图书地点维护</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="/categorylist_show/">图书分类维护</a>
+                </div>
+            </li>
 
-            <a class="nav-link text-body font-weight-bold " href="/suggestionlist_by_employee_query/">查询</a>
-
-            <a class="nav-link text-body font-weight-bold " href="/reward_list/">奖品</a>
-
-            <a class="nav-link text-body font-weight-bold " href="/reward_apply_by_employee/">奖品申请</a>
-
-
-            {% if request.user.employeeuser.role == '初审人员'  or request.user.is_superuser %}
-            <a class="nav-link text-body font-weight-bold " href="/reward_apply_review_by_ci_query/" data-toggle="tooltip" data-placement="top" title="点击可待审核表单的更新状态">奖品审核
-                {% if request.user.employeeuser.reward_should_review %}
-                <span class="badge badge-secondary">
-                    {{ request.user.employeeuser.reward_should_review }}
-                </span>
-                {% endif %}
-            </a>
-            {% endif %}
-
-
-            <a class="nav-link text-body font-weight-bold" href="/dashboard/"> 看板 </a>
-
-            {% if request.user.employeeuser.role == '初审人员' or request.user.is_superuser %}
-            <a class="nav-link text-body font-weight-bold " href="/admin/">资料管理</a>
-            {% endif %}
-
-            <a class="nav-link text-body font-weight-bold " href="/contact_us/">联系窗口</a>
           </div>
         </div>
         <!--增加登入登出的功能开始-->
         {% if user.is_authenticated %}
+           
+            <div class="nav-item dropdown">
+                <a class="nav-link active font-weight-bold text-info dropdown-toggle" href="/list/" id="navbarDropdown" role="button" data-toggle="dropdown">
+                    用户管理
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="/suggestion_list/">注册</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="/dept_review_list/">修改信息</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="float-right mx-1 dropdown-item" href="/user_logout/">登出</a>
+                </div>
+            </div>
             Welcome {{ user.username }}
-            <a class="float-right btn btn-secondary mx-1 " style="font-size: 12px;" href="/user_logout/">登出</a>
+            
         {% else %}
             Please login first.
-            <a class="float-right btn btn-primary mx-1 " style="font-size: 12px;" href="/user_login/">登入</a>
+            <a class="float-right btn btn-primary mx-1 " href="/user_login/">登入</a>
         {% endif %}
         <!--增加登入登出的功能结束-->
     </nav>
@@ -130,16 +110,13 @@
 
 
     {% block permission_block %}
-    {% if request.user.is_authenticated %}
-    <div class="m-3">
-        用户：<span class="text-primary">{{ request.user.username }}</span>&nbsp;&nbsp;
-        姓名：<span class="text-primary">{{ request.user.employeeuser.employeename }}</span>&nbsp;&nbsp;
-        部门：<span class="text-primary">{{ request.user.employeeuser.department }}</span>&nbsp;&nbsp;
-        角色：<span class="text-primary">{{ request.user.employeeuser.role }}</span>&nbsp;&nbsp;
-        疑问请咨询<a href="/contact_us/" >管理员</a>&nbsp;&nbsp;
-        剩余积分：<span class="text-primary">{{ request.user.employeeuser.score_left }}</span>&nbsp;&nbsp;
-    </div>
-    {% endif %}
+        {% if request.user.is_authenticated %}
+        <div class="m-3">
+            用户：<span class="text-primary">{{ request.user.username }}</span>&nbsp;&nbsp;
+            姓名：<span class="text-primary">{{ request.user.employeeuser.employeename }}</span>&nbsp;&nbsp;
+            角色：<span class="text-primary">{{ request.user.employeeuser.role }}</span>&nbsp;&nbsp;
+        </div>
+        {% endif %}
     {% endblock %}
 
 
@@ -163,17 +140,17 @@
             <div class="row pt-1 pb-2">
                 <div class="col-sm-12 col-md-10">
                     <div class="pt-1">
-                        <p class="mb-1">一汽富晟李尔汽车座椅系统有限公司是国内大型汽车座椅生产企业主要从事设计、制造、组装、销售各类汽车座椅及内饰件产品。</p>
+                        <p class="mb-1">图书管理系统</p>
 
                         <ul class="nav">
-                            <li class="nav-item"><a class="nav-link text-white pl-0"  href="">设计</a></li>
-                            <li class="nav-item"><a class="nav-link text-white pl-0"  href="">制造</a></li>
-                            <li class="nav-item"><a class="nav-link text-white pl-0"  href="">组装</a></li>
-                            <li class="nav-item"><a class="nav-link text-white pl-0"  href="">销售</a></li>
+                            <li class="nav-item"><a class="nav-link text-white pl-0"  href="">借订</a></li>
+                            <li class="nav-item"><a class="nav-link text-white pl-0"  href="">归还</a></li>
+                            <li class="nav-item"><a class="nav-link text-white pl-0"  href="">统计</a></li>
+                            <li class="nav-item"><a class="nav-link text-white pl-0"  href="">存档</a></li>
                         </ul>
 
                         <div class="text-muted">
-                            ©<i>2022</i> 一汽富晟李尔汽车座椅系统有限公司 <span class="mx-3">版权所有</span>
+                            ©<i>2022</i> 图书管理系统 <span class="mx-3">版权所有</span>
                         </div>
                         
                     </div>

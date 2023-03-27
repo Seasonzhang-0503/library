@@ -18,9 +18,9 @@ class location(models.Model):
 
 class category(models.Model):
     cid = models.AutoField(primary_key=True)
-    category_id = models.CharField(max_length=500,verbose_name=('主题编号'),blank=True, null=True,)
-    category_keyname = models.CharField(max_length=500,verbose_name=('主题主名称'),blank=True, null=True,)
-    category_subname = models.CharField(max_length=500,verbose_name=('主题子名称'),blank=True, null=True,)
+    category_id = models.CharField(max_length=500,verbose_name=('分类编号'),)
+    category_keyname = models.CharField(max_length=500,verbose_name=('分类主名称'),)
+    category_subname = models.CharField(max_length=500,verbose_name=('分类子名称'),)
 
 
     class Meta:
@@ -66,6 +66,7 @@ class theUser(models.Model):
     theUser_name = models.CharField(max_length=500,verbose_name=('用户名称'),blank=True, null=True,)
     theUser_logo = models.ImageField(max_length=500, blank=True, null=True, verbose_name=('用户LOGO'),upload_to='images')
     theUser_password = models.CharField(max_length=500,verbose_name=('用户密码'),blank=True, null=True,)
+    theUser_phone = models.CharField(max_length=500,verbose_name=('用户电话'),blank=True, null=True,)
     theUser_status1 = models.CharField(max_length=500,verbose_name=('用户状态1'),blank=True, null=True,)
     theUser_status2 = models.CharField(max_length=500,verbose_name=('用户状态2'),blank=True, null=True,)
     theUser_status3 = models.CharField(max_length=500,verbose_name=('用户状态3'),blank=True, null=True,)
@@ -79,25 +80,22 @@ class theUser(models.Model):
         return str(self.subject_id+ '--' +self.subject_mainname+ '--' +self.subject_subname)
 
 
-class categoryForm(ModelForm):
-    class Meta:
-        model = category
-        fields = '__all__'
 
-class borrow(models.Model):
+class theBorrow(models.Model):
     boid = models.AutoField(primary_key=True)
-    borrow_datetime = models.DateTimeField(max_length=500,verbose_name=('借订编号'),blank=True, null=True,)
-    borrow_theUser = models.ForeignKey(theUser,blank=True, null=True, on_delete=models.CASCADE,related_name='borrow_theUser')
-    borrow_theBook = models.ForeignKey(theBook,blank=True, null=True, on_delete=models.CASCADE,related_name='borrow_theBook')
-    borrow_status1 = models.CharField(max_length=500,verbose_name=('借订状态1'),blank=True, null=True,)
-    borrow_status2 = models.CharField(max_length=500,verbose_name=('借订状态2'),blank=True, null=True,)
-    borrow_status3 = models.CharField(max_length=500,verbose_name=('借订状态3'),blank=True, null=True,)
+    theBorrow_datetime = models.DateTimeField(max_length=500,verbose_name=('借订编号'),blank=True, null=True,)
+    theBorrow_theUser = models.ForeignKey(theUser,blank=True, null=True, on_delete=models.CASCADE,related_name='borrow_theUser')
+    theBorrow_theBook = models.ForeignKey(theBook,blank=True, null=True, on_delete=models.CASCADE,related_name='borrow_theBook')
+    theBorrow_duration = models.IntegerField(verbose_name=('借订天数'),blank=True, null=True,)
+    theBorrow_status1 = models.CharField(max_length=500,verbose_name=('借订状态1'),blank=True, null=True,)
+    theBorrow_status2 = models.CharField(max_length=500,verbose_name=('借订状态2'),blank=True, null=True,)
+    theBorrow_status3 = models.CharField(max_length=500,verbose_name=('借订状态3'),blank=True, null=True,)
 
     class Meta:
         verbose_name = ('借订')
         verbose_name_plural = ('借订')
 
     def __str__(self):
-        return str(self.subject_id+ '--' +self.subject_name)
+        return str(self.boid+ '--' +self.theBorrow_theUser)
     
 
