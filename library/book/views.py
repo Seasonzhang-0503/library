@@ -64,3 +64,8 @@ def categorylist_edit(request,cid):
 
     return render(request,'categorylist_edit.html',{'form':form})
 
+
+
+def categorylist_delete(request,cid):
+    category.objects.get(cid=cid).delete()
+    return redirect("/categorylist_show/")

@@ -28,6 +28,7 @@ urlpatterns = [
     path('categorylist_show/', views.categorylist_show, name='categorylist_show'),
     path('categorylist_new/', views.categorylist_new, name='categorylist_new'),
     path('categorylist_edit/<int:cid>/', views.categorylist_edit,name='categorylist_edit'),
+    path('categorylist_delete/<int:cid>/', views.categorylist_delete,name='categorylist_delete'),
 
     
     ##　静态文件夹路由：读取"/static/"的数据
