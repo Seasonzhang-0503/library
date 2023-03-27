@@ -4,8 +4,8 @@ from django.forms import ModelForm
 
 class location(models.Model):
     lid = models.AutoField(primary_key=True)
-    location_city = models.CharField(max_length=500,verbose_name=('城市'),blank=True, null=True,)
-    location_name = models.CharField(max_length=500,verbose_name=('地点名称'),blank=True, null=True,)
+    location_city = models.CharField(max_length=500,verbose_name=('城市'))
+    location_name = models.CharField(max_length=500,verbose_name=('地点名称'))
 
 
     class Meta:
@@ -32,6 +32,7 @@ class category(models.Model):
 
 
 THEBOOK_TYPE = (('电子书', '电子书'), ('纸质书', '纸质书'))
+THESTATUS_TYPE = (('已借订', '已借订'), ('未借订', '未借订'))
 
 class theBook(models.Model):
     bid = models.AutoField(primary_key=True)
@@ -41,7 +42,7 @@ class theBook(models.Model):
     theBook_category = models.ForeignKey(category,blank=True, null=True, on_delete=models.CASCADE,related_name='Book_category')
     theBook_logo = models.ImageField(max_length=500, blank=True, null=True, verbose_name=('图书照片1'),upload_to='images')
     theBook_attachment = models.FileField(max_length=10000,verbose_name=('图书附件(备用)'),blank=True, null=True,upload_to='file')
-    theBook_status1 = models.CharField(max_length=500,verbose_name=('图书状态1'),blank=True, null=True,)
+    theBook_status1 = models.CharField(max_length=500,verbose_name=('图书状态1'),choices=THESTATUS_TYPE,blank=True, null=True,)
     theBook_status2 = models.CharField(max_length=500,verbose_name=('图书状态2(备用)'),blank=True, null=True,)
     theBook_status3 = models.CharField(max_length=500,verbose_name=('图书状态3(备用)'),blank=True, null=True,)
     theBook_id = models.CharField(max_length=500,verbose_name=('图书编号(备用)'),blank=True, null=True,)

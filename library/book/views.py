@@ -6,8 +6,7 @@ from .forms import *
 from django.shortcuts import render, redirect
 
 
-# Create your views here.
-# 登出页面
+
 def categorylist(request):
     form = categoryForm()
 
@@ -16,6 +15,8 @@ def categorylist(request):
     }
 
     return render(request,'categorylist.html',context)
+
+
 
 
 def categorylist_show(request):    
@@ -65,7 +66,118 @@ def categorylist_edit(request,cid):
     return render(request,'categorylist_edit.html',{'form':form})
 
 
-
 def categorylist_delete(request,cid):
     category.objects.get(cid=cid).delete()
     return redirect("/categorylist_show/")
+
+
+
+
+def locationlist_show(request):    
+    locationlist = location.objects.all()
+    
+    context = {
+        'locationlist':locationlist,
+    }
+
+    return render(request,'locationlist_show.html',context)
+
+
+
+def locationlist_new(request):
+
+    if request.method == "GET":
+        form = locationForm()
+        return render(request,'locationlist_new.html',{'form':form})
+    
+    # 用户POST请求提交数据,需要进行数据校验
+    form = locationForm(data=request.POST)
+    if form.is_valid():
+        print(form.cleaned_data)
+        # 直接保存至数据库
+        form.save()
+        return redirect("/locationlist_show/")
+
+    return render(request,'locationlist_new.html',{'form':form})
+
+
+
+def locationlist_edit(request,lid):
+    row_obj = location.objects.filter(lid=lid).first()
+
+    if request.method == "GET":
+        form = locationForm(instance=row_obj)
+        return render(request,'locationlist_edit.html',{'form':form})
+    
+    # 用户POST请求提交数据,需要进行数据校验
+    form = locationForm(data=request.POST, instance=row_obj)
+    if form.is_valid():
+        print(form.cleaned_data)
+        # 直接保存至数据库
+        form.save()
+        return redirect("/locationlist_show/")
+
+    return render(request,'locationlist_edit.html',{'form':form})
+
+
+
+def locationlist_delete(request,lid):
+    location.objects.get(lid=lid).delete()
+    return redirect("/locationlist_show/")
+
+
+
+
+
+def theBooklist_show(request):    
+    theBooklist = theBook.objects.all()
+    
+    context = {
+        'theBooklist':theBooklist,
+    }
+
+    return render(request,'theBooklist_show.html',context)
+
+
+
+def theBooklist_new(request):
+
+    if request.method == "GET":
+        form = theBookForm()
+        return render(request,'theBooklist_new.html',{'form':form})
+    
+    # 用户POST请求提交数据,需要进行数据校验
+    form = theBookForm(data=request.POST)
+    if form.is_valid():
+        print(form.cleaned_data)
+        # 直接保存至数据库
+        form.save()
+        return redirect("/theBooklist_show/")
+
+    return render(request,'theBooklist_new.html',{'form':form})
+
+
+
+def theBooklist_edit(request,bid):
+    row_obj = theBook.objects.filter(bid=bid).first()
+
+    if request.method == "GET":
+        form = theBookForm(instance=row_obj)
+        return render(request,'theBooklist_edit.html',{'form':form})
+    
+    # 用户POST请求提交数据,需要进行数据校验
+    form = theBookForm(data=request.POST, instance=row_obj)
+    if form.is_valid():
+        print(form.cleaned_data)
+        # 直接保存至数据库
+        form.save()
+        return redirect("/theBooklist_show/")
+
+    return render(request,'theBooklist_edit.html',{'form':form})
+
+
+def theBooklist_delete(request,bid):
+    theBook.objects.get(bid=bid).delete()
+    return redirect("/theBooklist_show/")
+
+

@@ -38,6 +38,14 @@ urlpatterns = [
     path('categorylist_edit/<int:cid>/', views.categorylist_edit,name='categorylist_edit'),
     path('categorylist_delete/<int:cid>/', views.categorylist_delete,name='categorylist_delete'),
 
+    # theBook增删改查
+    path('theBooklist_show/', views.theBooklist_show, name='theBooklist_show'),
+    path('theBooklist_new/', views.theBooklist_new, name='theBooklist_new'),
+    path('theBooklist_edit/<int:cid>/', views.theBooklist_edit,name='theBooklist_edit'),
+    path('theBooklist_delete/<int:cid>/', views.theBooklist_delete,name='theBooklist_delete'),
+
+
+
     
     ##　静态文件夹路由：读取"/static/"的数据
     re_path('static/(?P<path>.*)', serve, {'document_root':settings.STATIC_ROOT},name='static'),
