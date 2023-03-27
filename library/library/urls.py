@@ -25,6 +25,14 @@ from django.contrib.staticfiles.urls import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.categorylist, name='categorylist'),
+
+    # location增删改查
+    path('locationlist_show/', views.locationlist_show, name='locationlist_show'),
+    path('locationlist_new/', views.locationlist_new, name='locationlist_new'),
+    path('locationlist_edit/<int:lid>/', views.locationlist_edit,name='locationlist_edit'),
+    path('locationlist_delete/<int:lid>/', views.locationlist_delete,name='locationlist_delete'),
+    
+    # category增删改查
     path('categorylist_show/', views.categorylist_show, name='categorylist_show'),
     path('categorylist_new/', views.categorylist_new, name='categorylist_new'),
     path('categorylist_edit/<int:cid>/', views.categorylist_edit,name='categorylist_edit'),
