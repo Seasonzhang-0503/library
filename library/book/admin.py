@@ -37,3 +37,11 @@ class theBorrowAdmin(admin.ModelAdmin):
     list_display = ('boid','theBorrow_datetime')
 
 admin.site.register(theBorrow,theBorrowAdmin)
+
+
+
+class theUserAdmin(admin.ModelAdmin):
+
+    list_display = ('uid','theUser_name')
+
+admin.site.register(theUser,theUserAdmin)

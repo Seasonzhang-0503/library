@@ -181,3 +181,118 @@ def theBooklist_delete(request,bid):
     return redirect("/theBooklist_show/")
 
 
+
+
+
+
+
+
+def theBorrowlist_show(request):
+    theBorrowlist = theBorrow.objects.all()
+    
+    context = {
+        'theBorrowlist':theBorrowlist,
+    }
+
+    return render(request,'theBorrowlist_show.html',context)
+
+
+
+def theBorrowlist_new(request):
+
+    if request.method == "GET":
+        form = theBorrowForm()
+        return render(request,'theBorrowlist_new.html',{'form':form})
+    
+    # 用户POST请求提交数据,需要进行数据校验
+    form = theBorrowForm(data=request.POST,files=request.FILES)
+    if form.is_valid():
+        # print(form.cleaned_data)
+        # 直接保存至数据库
+        form.save()
+        return redirect("/theBorrowlist_show/")
+
+    return render(request,'theBorrowlist_new.html',{'form':form})
+
+
+
+def theBorrowlist_edit(request,boid):
+    row_obj = theBorrow.objects.filter(boid=boid).first()
+
+    if request.method == "GET":
+        form = theBorrowForm(instance=row_obj)
+        return render(request,'theBorrowlist_edit.html',{'form':form})
+    
+    # 用户POST请求提交数据,需要进行数据校验
+    form = theBorrowForm(data=request.POST,files=request.FILES, instance=row_obj)
+    if form.is_valid():
+        # print(form.cleaned_data)
+        # 直接保存至数据库
+        form.save()
+        return redirect("/theBorrowlist_show/")
+
+    return render(request,'theBorrowlist_edit.html',{'form':form})
+
+
+def theBorrowlist_delete(request,boid):
+    theBorrow.objects.get(boid=boid).delete()
+    return redirect("/theBorrowlist_show/")
+
+
+
+
+
+
+
+
+
+def theUserlist_show(request):
+    theUserlist = theUser.objects.all()
+    
+    context = {
+        'theUserlist':theUserlist,
+    }
+
+    return render(request,'theUserlist_show.html',context)
+
+
+
+def theUserlist_new(request):
+
+    if request.method == "GET":
+        form = theUserForm()
+        return render(request,'theUserlist_new.html',{'form':form})
+    
+    # 用户POST请求提交数据,需要进行数据校验
+    form = theUserForm(data=request.POST,files=request.FILES)
+    if form.is_valid():
+        # print(form.cleaned_data)
+        # 直接保存至数据库
+        form.save()
+        return redirect("/theUserlist_show/")
+
+    return render(request,'theUserlist_new.html',{'form':form})
+
+
+
+def theUserlist_edit(request,uid):
+    row_obj = theUser.objects.filter(uid=uid).first()
+
+    if request.method == "GET":
+        form = theUserForm(instance=row_obj)
+        return render(request,'theUserlist_edit.html',{'form':form})
+    
+    # 用户POST请求提交数据,需要进行数据校验
+    form = theUserForm(data=request.POST,files=request.FILES, instance=row_obj)
+    if form.is_valid():
+        # print(form.cleaned_data)
+        # 直接保存至数据库
+        form.save()
+        return redirect("/theUserlist_show/")
+
+    return render(request,'theUserlist_edit.html',{'form':form})
+
+
+def theUserlist_delete(request,uid):
+    theUser.objects.get(uid=uid).delete()
+    return redirect("/theUserlist_show/")
