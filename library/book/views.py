@@ -129,7 +129,7 @@ def locationlist_delete(request,lid):
 
 
 
-def theBooklist_show(request):    
+def theBooklist_show(request):
     theBooklist = theBook.objects.all()
     
     context = {
@@ -147,9 +147,9 @@ def theBooklist_new(request):
         return render(request,'theBooklist_new.html',{'form':form})
     
     # 用户POST请求提交数据,需要进行数据校验
-    form = theBookForm(data=request.POST)
+    form = theBookForm(data=request.POST,files=request.FILES)
     if form.is_valid():
-        print(form.cleaned_data)
+        # print(form.cleaned_data)
         # 直接保存至数据库
         form.save()
         return redirect("/theBooklist_show/")
@@ -166,7 +166,7 @@ def theBooklist_edit(request,bid):
         return render(request,'theBooklist_edit.html',{'form':form})
     
     # 用户POST请求提交数据,需要进行数据校验
-    form = theBookForm(data=request.POST, instance=row_obj)
+    form = theBookForm(data=request.POST,files=request.FILES, instance=row_obj) 
     if form.is_valid():
         print(form.cleaned_data)
         # 直接保存至数据库

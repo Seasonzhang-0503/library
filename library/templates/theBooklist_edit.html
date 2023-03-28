@@ -10,7 +10,7 @@
             <!--表单-->
             <h3 class="font-weight-bold">图书-编辑</h3>
             <div class="modal-body">
-                <form method="post" id="formSave">
+                <form method="post" id="formSave" enctype="multipart/form-data">
                     {% csrf_token %}
                     <div>
                         {% for item in form %}

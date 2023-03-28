@@ -31,7 +31,14 @@
                     <td>{{ theBook.theBook_location }}</td>
                     <td>{{ theBook.theBook_type }}</td>
                     <td>{{ theBook.theBook_category }}</td>
-                    <td>{{ theBook.theBook_logo }}</td>
+                    <!-- <td>{{ theBook.theBook_logo }}</td> -->
+                    <td class="" style="width:100px; height:100px">
+                        {% if theBook.theBook_logo %}
+                        <a target="_blank" href="{{theBook.theBook_logo.url}}" >
+                            <img src="{{theBook.theBook_logo.url}}" alt="{{theBook.theBook_logo.url}}" width="100px" height="100px"></img>
+                        </a>
+                        {% endif %}
+                    </td>
                     <td>{{ theBook.theBook_status1 }}</td>
                     <td>{{ theBook.theBook_id }}</td>
                     <td>

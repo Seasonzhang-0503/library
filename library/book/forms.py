@@ -40,6 +40,8 @@ class theBookForm(ModelForm):
     class Meta:
         model = theBook
         fields = '__all__'
+        exclude = ['theBook_status2','theBook_status3','theBook_information2',
+                   'theBook_information3','theBook_information4','theBook_information5',]
 
 
     # 循环找到所有的插件,加入css样式,添加 "class": "form-control"

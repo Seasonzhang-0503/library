@@ -9,8 +9,8 @@
         <div class="col-lg-12 col-md-12 mt-0 table-responsive"  style="background-color: #fff;">
             <!--表单-->
             <h3 class="font-weight-bold">图书-添加</h3>
-            <div class="modal-body">
-                <form method="post" id="formSave">
+            <div class="panel-body">
+                <form method="post" id="formSave" enctype="multipart/form-data">
                     {% csrf_token %}
                     <div>
                         {% for item in form %}
