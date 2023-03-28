@@ -116,9 +116,15 @@ class theUserForm(ModelForm):
         exclude = ['theUser_status2','theUser_status3',]
 
         widgets = {
-            # "theBorrow_datetime":wid.SelectDateWidget(attrs={"type":"date","class":'ml-3'}) #还可以自定义属性
-            # "theBorrow_datetime":wid.Input(attrs={"type":"date"})
+            "theUser_password":wid.PasswordInput()
         }
+
+        labels= {
+            "theUser_logo":"用户头像",
+            "theUser_status1":"生效状态",
+            "theUser_status2":"借订书籍",
+        }
+
         
     # 循环找到所有的插件,加入css样式,添加 "class": "form-control"
     bootstrap_exclude_fields = []

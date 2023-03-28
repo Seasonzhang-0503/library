@@ -78,7 +78,8 @@ class theUser(models.Model):
         verbose_name = ('自定义用户')
         verbose_name_plural = ('自定义用户')
 
-
+    def __str__(self):
+        return str(self.theUser_id) + '---' + str(self.theUser_name)
 
 THEBORROWSTATUS_TYPE = (('进行中', '进行中'), ('已结束', '已结束'))
 class theBorrow(models.Model):

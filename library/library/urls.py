@@ -24,7 +24,7 @@ from django.contrib.staticfiles.urls import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.categorylist, name='categorylist'),
+    path('', views.home, name='home'),
 
     # location增删改查
     path('locationlist_show/', views.locationlist_show, name='locationlist_show'),

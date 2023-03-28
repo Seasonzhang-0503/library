@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block body_block %}
+<div class="container">
+  <div class="row py-4">
+
+    <!--引入轮播图-->
+    <div class="bd-example w-100">
+      <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel" data-interval="5000">
+        <ol class="carousel-indicators">
+          <li data-target="#carouselExampleCaptions" data-slide-to="0" class="active"></li>
+        </ol>
+        <div class="carousel-inner">
+
+          <div class="carousel-item active">
+            <div class="jumbotron w-100">
+              <h1 class="display-4">图书管理</h1>
+              <p class="lead">本平台旨在方便书籍的借还管理。</p>
+              <hr class="my-4">
+              <p>书籍存放区域---可自定义存放区域，包含个人电脑、家、公司等。</p>
+              <p>书籍管理功能---分为图书借订、图书归还、借书查询。</p>
+              <p>维护基础数据---分为图书维护、读者维护、借订维护、图书地点维护、图书分类维护。</p>
+            </div>
+          </div>
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="container">
+    <div class="card-deck text-center">
+      <div class="card mb-4 box-shadow">
+        <div class="card-header">
+          <h4 class="my-0 font-weight-normal">&nbsp;</h4>
+        </div>
+
+        <div class="card-body">
+          <h1 class="card-title pricing-card-title"><small class="text-muted">图书借订</small></h1>
+          <ul class="list-unstyled mt-3 mb-4">
+            <li><br></li>
+            <li>已注册的用户可申请图书借订。</li>
+            <li>管理员将定期查看借订情况。</li>
+            <li><br></li>
+          </ul>
+          <a type="button" href="/classroom_info/" class="btn btn-lg btn-block btn-outline-primary">more</a>
+        </div>
+
+      </div>
+      <div class="card mb-4 box-shadow">
+        <div class="card-header">
+          <h4 class="my-0 font-weight-normal">&nbsp;</h4>
+        </div>
+        
+        <div class="card-body">
+          <h1 class="card-title pricing-card-title"><small class="text-muted">图书归还</small></h1>
+          <ul class="list-unstyled mt-3 mb-4">
+            <li><br></li>
+            <li>已借订图书的请及时归还图书。</li>
+            <li>管理员将定期查看未归还情况。</li>
+            <li><br></li>
+          </ul>
+          <a type="button" href="/booking_apply/" class="btn btn-lg btn-block btn-outline-primary">apply</a>
+        </div>
+
+      </div>
+      <div class="card mb-4 box-shadow">
+        <div class="card-header">
+          <h4 class="my-0 font-weight-normal">&nbsp;</h4>
+        </div>
+
+        <div class="card-body">
+          <h1 class="card-title pricing-card-title"><small class="text-muted">借书查询</small></h1>
+          <div class="list-unstyled mt-3 mb-4">     
+            <li><br></li>       
+            <li>图书借订如遇问题，请联系工作人员。</li>
+            <li>Season@6331</li>
+            <li><br></li>
+          </div>
+          <a type="button" href="/query_booking_apply/" class="btn btn-lg btn-block btn-outline-primary">record</a>
+        </div>
+        
+
+      </div>
+    </div>
+
+  </div>
+
+
+  
+</div>
+</div>
+
+{% endblock %}

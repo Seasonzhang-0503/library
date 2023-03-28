@@ -7,14 +7,12 @@ from django.shortcuts import render, redirect
 
 
 
-def categorylist(request):
-    form = categoryForm()
+def home(request):
 
     context = {
-        "form": form,
     }
 
-    return render(request,'categorylist.html',context)
+    return render(request,'home.html',context)
 
 
 
