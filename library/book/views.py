@@ -1,9 +1,10 @@
 from django.shortcuts import render
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect,JsonResponse
 from django import forms
 from .models import *
 from .forms import *
 from django.shortcuts import render, redirect
+from django.views.decorators.csrf import csrf_exempt
 
 
 
@@ -294,3 +295,44 @@ def theUserlist_edit(request,uid):
 def theUserlist_delete(request,uid):
     theUser.objects.get(uid=uid).delete()
     return redirect("/theUserlist_show/")
+
+
+
+
+
+def theBorrowlist_user_show(request):
+
+    theBorrowlist = theBorrow.objects.all()
+    form = theBorrowModalForm()
+        
+    context = {
+        'theBorrowlist':theBorrowlist,
+        'form':form,
+    }
+
+    return render(request,'theBorrowlist_user_show.html',context)
+
+
+
+@csrf_exempt
+def theBorrowlist_user_modal_show(request):
+
+    boid = request.GET.get('boid')
+    # values方法形成一个对象
+    row_obj = theBorrow.objects.filter(boid=boid).values("boid", "theBorrow_datetime", "theBorrow_theUser",
+                                                         'theBorrow_theBook','theBorrow_duration','theBorrow_status1'
+                                                         ).first()
+
+    if not row_obj:
+        return JsonResponse({"status": False, "error": "数据不存在!"})
+    
+
+    # 从数据库中获取到一个对象 row_object
+    result = {
+        "status": True,
+        "data": row_obj,
+    }
+    print('result',result)
+
+    return JsonResponse(result)
+

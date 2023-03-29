@@ -56,6 +56,9 @@ urlpatterns = [
     path('theUserlist_edit/<int:uid>/', views.theUserlist_edit,name='theUserlist_edit'),
     path('theUserlist_delete/<int:uid>/', views.theUserlist_delete,name='theUserlist_delete'),
 
+    # theBorrow_user增删改查
+    path('theBorrowlist_user_show/', views.theBorrowlist_user_show, name='theBorrowlist_user_show'),
+    path('theBorrowlist_user_modal_show/', views.theBorrowlist_user_modal_show, name='theBorrowlist_user_modal_show'),
 
 
     

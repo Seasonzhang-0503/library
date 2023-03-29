@@ -1,0 +1,135 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block body_block %}
+<div class="container">
+    <div class="row py-4 align-items-center">
+        
+        <!--展示显示人员-->
+        <div class="col-lg-12 col-md-12 mt-0 table-responsive"  style="background-color: #fff;">
+            <!--表单-->
+            <h3 class="font-weight-bold">预订清单<a class="ml-4 btn btn-light" href="/theBorrowlist_new/">+</a></h3>
+            <table class="table table-striped table-sm table-bordered ">
+                <thead>
+                    <tr style="color:White;background-color:#3366FF;font-family:微軟正黑體,Tahoma,Arial,微軟雅黑體;font-size:15px;">
+                        <th scope="col">#</th>
+                        <th scope="col">借订日期</th>
+                        <th scope="col">借订人</th>
+                        <th scope="col">借订书籍</th>
+                        <th scope="col">借订天数</th>
+                        <th scope="col">借订状态1</th>
+                        <th scope="col">操作</th>
+                    </tr>
+                </thead>
+            
+                {% for theBorrow in theBorrowlist %}
+                <tr valign="middle" style="color:Black;border-color:#E0E0E0;font-size:15px;"></tr>
+                    <td>{{ theBorrow.boid }}</td>
+                    <td>{{ theBorrow.theBorrow_datetime }}</td>
+                    <td>{{ theBorrow.theBorrow_theUser }}</td>
+                    <td>{{ theBorrow.theBorrow_theBook }}</td>
+                    <td>{{ theBorrow.theBorrow_duration }}</td>
+                    <td>{{ theBorrow.theBorrow_status1 }}</td>
+                    <td>
+                        <!-- <a class="btn btn-primary btn-xs" href="/theBorrowlist_edit/{{ theBorrow.boid }}/">编辑</a> -->
+                        <button type="button" id='btnEdit' class="btn btn-primary"  boid="{{ theBorrow.boid }}">
+                            编辑/查看
+                        </button>
+                    </td>
+                </tr>
+                {% endfor %}
+                
+            </table>
+
+
+<!-- Button trigger modal -->
+
+  
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalCenterTitle">查看预订情况</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+
+
+            <form method="post" id="formSave" enctype="multipart/form-data">
+                <div>
+                    {% for item in form %}
+                    <div class="col-xs-6">
+                        <div class="form-group" style="position: relative; margin-top: 5px">
+                            <label>{{ item.label }}</label>
+                            {{ item }}
+                            <span class="error_msg" style="color: red;position: absolute;">{{ item.errors.0 }}</span>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </form>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+        </div>
+    </div>
+</div>
+
+<br>
+<br>
+<br>
+<br>
+<br>
+{% endblock %}
+
+
+
+{% block script %}
+  <script type="text/javascript">
+    $(function(){
+        doEdit();
+    })
+
+    function doEdit(){
+        $("#btnEdit").click(function(){
+
+            var boid = $(this).attr("boid")
+            console.log('boid',boid)
+
+            $.ajax({
+                url: "/theBorrowlist_user_modal_show/",
+                type: "get",
+                data:{
+                    boid : boid,
+                },
+                dataType: "JSON",
+                success: function (res) {
+                    if (res.status) {
+                        $.each(res.data, function (name, value) {
+                            $("#id_" + name).val(value);
+                        });
+                        // 显示对话框
+                        $("#myModal").modal('show');                        
+                    } else {
+                        alert(res.error);
+                        $("#myModal").modal('hide');
+                    }
+                }
+            })
+        });
+    }
+
+
+  </script>
+{% endblock %}

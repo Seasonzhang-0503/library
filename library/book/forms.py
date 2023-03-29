@@ -106,6 +106,37 @@ class theBorrowForm(ModelForm):
 
 
 
+class theBorrowModalForm(ModelForm):
+    class Meta:
+        model = theBorrow
+        fields = '__all__'
+        exclude = ['theBorrow_status2','theBorrow_status3',]
+
+        widgets = {
+            # "theBorrow_datetime":wid.SelectDateWidget(attrs={"type":"date","class":'ml-3'}) #还可以自定义属性
+            "theBorrow_datetime":wid.DateTimeInput(attrs={"type":"text","readonly":"True"}),
+            "theBorrow_theUser":wid.Select(attrs={"type":"text","readonly":"True"}),
+            "theBorrow_theBook":wid.Select(attrs={"type":"text","readonly":"True"}),
+            "theBorrow_duration":wid.Input(attrs={"readonly":"True"}),
+            "theBorrow_status1":wid.Input(attrs={"readonly":"True"}),
+        }   
+        
+    # 循环找到所有的插件,加入css样式,添加 "class": "form-control"
+    bootstrap_exclude_fields = []
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # 循环ModelForm中的所有字段,给每个字段的插件设置
+        for name, field in self.fields.items():
+            if name in self.bootstrap_exclude_fields:
+                continue
+            # class属性追加form-control，其他属性保留
+            if field.widget.attrs:
+                field.widget.attrs["class"] = field.widget.attrs.get('class','') + ' ' + 'form-control'
+            else:
+                field.widget.attrs = {
+                    "class": "form-control",
+                }
+
 
 
 
