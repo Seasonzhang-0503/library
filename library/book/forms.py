@@ -113,16 +113,16 @@ class theBorrowModalForm(ModelForm):
         exclude = ['theBorrow_status2','theBorrow_status3',]
 
         widgets = {
-            # "theBorrow_datetime":wid.SelectDateWidget(attrs={"type":"date","class":'ml-3'}) #还可以自定义属性
-            "theBorrow_datetime":wid.DateTimeInput(attrs={"type":"text","readonly":"True"}),
-            "theBorrow_theUser":wid.Select(attrs={"type":"text","readonly":"True"}),
-            "theBorrow_theBook":wid.Select(attrs={"type":"text","readonly":"True"}),
-            "theBorrow_duration":wid.Input(attrs={"readonly":"True"}),
-            "theBorrow_status1":wid.Input(attrs={"readonly":"True"}),
+            "theBorrow_datetime":wid.SelectDateWidget(attrs={"type":"date","class":'ml-3'}), #还可以自定义属性
+            # "theBorrow_datetime":wid.DateTimeInput(attrs={"type":"text"}),
+            "theBorrow_theUser":wid.Select(),
+            "theBorrow_theBook":wid.Select(),
+            "theBorrow_duration":wid.NumberInput(),
+            "theBorrow_status1":wid.Select(),
         }   
         
     # 循环找到所有的插件,加入css样式,添加 "class": "form-control"
-    bootstrap_exclude_fields = []
+    bootstrap_exclude_fields = ['theBorrow_datetime']
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         # 循环ModelForm中的所有字段,给每个字段的插件设置

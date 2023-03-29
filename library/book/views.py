@@ -327,7 +327,6 @@ def theBorrowlist_user_modal_show(request):
     if not row_obj:
         return JsonResponse({"status": False, "error": "数据不存在!"})
     
-
     # 从数据库中获取到一个对象 row_object
     result = {
         "status": True,
@@ -337,3 +336,12 @@ def theBorrowlist_user_modal_show(request):
 
     return JsonResponse(result)
 
+
+
+@csrf_exempt
+def theBorrowlist_user_modal_new(request):
+    result = {
+        "status": True,
+        "error":'fail',
+    }
+    return JsonResponse(result)

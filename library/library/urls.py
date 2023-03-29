@@ -59,6 +59,7 @@ urlpatterns = [
     # theBorrow_user增删改查
     path('theBorrowlist_user_show/', views.theBorrowlist_user_show, name='theBorrowlist_user_show'),
     path('theBorrowlist_user_modal_show/', views.theBorrowlist_user_modal_show, name='theBorrowlist_user_modal_show'),
+    path('theBorrowlist_user_modal_new/', views.theBorrowlist_user_modal_new, name='theBorrowlist_user_modal_new'),
 
 
     
