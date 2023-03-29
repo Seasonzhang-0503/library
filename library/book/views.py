@@ -300,17 +300,21 @@ def theUserlist_delete(request,uid):
 
 
 
-def theBorrowlist_user_show(request):
+def theBorrowlist_user(request):
 
     theBorrowlist = theBorrow.objects.all()
-    form = theBorrowModalForm()
+    AddForm = theBorrowModalAddForm()
+    ShowForm = theBorrowModalShowForm()
+    # EditForm = theBorrowModalEditForm()
         
     context = {
         'theBorrowlist':theBorrowlist,
-        'form':form,
+        'AddForm':AddForm,
+        'ShowForm':ShowForm,
+        # 'EditForm':EditForm,
     }
 
-    return render(request,'theBorrowlist_user_show.html',context)
+    return render(request,'theBorrowlist_user.html',context)
 
 
 

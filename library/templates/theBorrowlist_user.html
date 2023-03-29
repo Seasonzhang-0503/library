@@ -46,7 +46,45 @@
 
   
         <!-- Modal -->
-        <div class="modal fade" data-backdrop="static" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal fade" data-backdrop="static" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document" style="max-width: 600px;">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalCenterTitle">新增预定</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+                <div class="modal-body">
+
+
+                    <form method="post" id="formSave1" enctype="multipart/form-data">
+                        <div>
+
+                            {% for item in AddForm %}
+                            <div class="col-12">
+                                <div class="form-group" style="position: relative; margin-top: 5px">
+                                    <label>{{ item.label }}</label>
+                                    {{ item }}
+                                    <span class="error_msg" style="color: red;position: absolute;">{{ item.errors.0 }}</span>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </form>
+
+                </div>
+                <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary btnSave">保存</button>
+                </div>
+            </div>
+            </div>
+        </div>
+
+
+        <!-- Modal -->
+        <div class="modal fade" data-backdrop="static" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document" style="max-width: 600px;">
             <div class="modal-content">
                 <div class="modal-header">
@@ -58,10 +96,10 @@
                 <div class="modal-body">
 
 
-                    <form method="post" id="formSave" enctype="multipart/form-data">
+                    <form method="post" id="formSave2" enctype="multipart/form-data">
                         <div>
 
-                            {% for item in form %}
+                            {% for item in ShowForm %}
                             <div class="col-12">
                                 <div class="form-group" style="position: relative; margin-top: 5px">
                                     <label>{{ item.label }}</label>
@@ -129,10 +167,10 @@
                         });
                         
                         // 显示对话框
-                        $("#myModal").modal('show');                        
+                        $("#myModal2").modal('show');                        
                     } else {
                         alert(res.error);
-                        $("#myModal").modal('hide');
+                        $("#myModal2").modal('hide');
                     }
                 }
             })
@@ -150,11 +188,11 @@
                 success: function (res) {
                     if (res.status) {
                         //清空历史信息
-                        $("#formSave")[0].reset();
-                        $("#myModal").modal('show');
+                        $("#formSave1")[0].reset();
+                        $("#myModal1").modal('show');
                     } else {
                         alert(res.error);
-                        $("#myModal").modal('hide');
+                        $("#myModal1").modal('hide');
                         // 刷新页面
                         location.reload();
                     }
