@@ -73,7 +73,6 @@ class theUser(models.Model):
     theUser_status2 = models.CharField(max_length=500,verbose_name=('用户状态2'),blank=True, null=True,)
     theUser_status3 = models.CharField(max_length=500,verbose_name=('用户状态3'),blank=True, null=True,)
 
-
     class Meta:
         verbose_name = ('自定义用户')
         verbose_name_plural = ('自定义用户')
@@ -81,12 +80,14 @@ class theUser(models.Model):
     def __str__(self):
         return str(self.theUser_id) + '---' + str(self.theUser_name)
 
-THEBORROWSTATUS_TYPE = (('进行中', '进行中'), ('已结束', '已结束'))
+
+
+THEBORROWSTATUS_TYPE = (('借订中', '借订中'), ('已归还', '已归还'))
 class theBorrow(models.Model):
     boid = models.AutoField(primary_key=True)
     theBorrow_datetime = models.DateTimeField(max_length=500,verbose_name=('借订日期'))
-    theBorrow_theUser = models.ForeignKey(theUser,on_delete=models.CASCADE,related_name='borrow_theUser',blank=True, null=True,)
-    theBorrow_theBook = models.ForeignKey(theBook,on_delete=models.CASCADE,related_name='borrow_theBook')
+    theBorrow_theUser = models.ForeignKey(theUser,on_delete=models.CASCADE) #related_name='borrow_theUser',
+    theBorrow_theBook = models.ForeignKey(theBook,on_delete=models.CASCADE)  #,related_name='borrow_theBook'
     theBorrow_duration = models.IntegerField(verbose_name=('借订天数'),blank=True, null=True,)
     theBorrow_status1 = models.CharField(max_length=500, choices=THEBORROWSTATUS_TYPE, verbose_name=('借订状态1'))
     theBorrow_status2 = models.CharField(max_length=500,verbose_name=('借订状态2'),blank=True, null=True,)
@@ -97,6 +98,6 @@ class theBorrow(models.Model):
         verbose_name_plural = ('借订')
 
     def __str__(self):
-        return str(self.boid+ '--' +self.theBorrow_theUser)
+        return str(self.boid)+ '--' +str(self.theBorrow_theUser)
     
 

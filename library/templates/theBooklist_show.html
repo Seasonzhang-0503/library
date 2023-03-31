@@ -18,7 +18,8 @@
                         <th scope="col">电子书/纸质书</th>
                         <th scope="col">分类</th>
                         <th scope="col">图书照片</th>
-                        <th scope="col">图书状态1</th>
+                        <!-- <th scope="col">图书状态1</th> -->
+                        <th scope="col">借订(外键)</th>
                         <th scope="col">图书编号</th>
                         <th scope="col">操作</th>
                     </tr>
@@ -39,7 +40,8 @@
                         </a>
                         {% endif %}
                     </td>
-                    <td>{{ theBook.theBook_status1 }}</td>
+                    <!-- <td>{{ theBook.theBook_status1 }}</td> -->
+                    <td>{{ theBook.theborrow_set.first.theBorrow_status1|default:'no-data' }}</td>
                     <td>{{ theBook.theBook_id }}</td>
                     <td>
                         <a class="btn btn-primary btn-xs" href="/theBooklist_edit/{{ theBook.bid }}/">编辑</a>

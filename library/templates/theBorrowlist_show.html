@@ -16,7 +16,7 @@
                         <th scope="col">借订日期</th>
                         <th scope="col">借订人</th>
                         <th scope="col">借订书籍</th>
-                        <th scope="col">借订天数</th>
+                        <!-- <th scope="col">借订天数</th> -->
                         <th scope="col">借订状态1</th>
                         <th scope="col">操作</th>
                     </tr>
@@ -28,7 +28,7 @@
                     <td>{{ theBorrow.theBorrow_datetime }}</td>
                     <td>{{ theBorrow.theBorrow_theUser }}</td>
                     <td>{{ theBorrow.theBorrow_theBook }}</td>
-                    <td>{{ theBorrow.theBorrow_duration }}</td>
+                    <!-- <td>{{ theBorrow.theBorrow_duration }}</td> -->
                     <td>{{ theBorrow.theBorrow_status1 }}</td>
                     <td>
                         <a class="btn btn-primary btn-xs" href="/theBorrowlist_edit/{{ theBorrow.boid }}/">编辑</a>

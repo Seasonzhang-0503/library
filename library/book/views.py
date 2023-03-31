@@ -283,7 +283,13 @@ def theUserlist_edit(request,uid):
 
     if request.method == "GET":
         form = theUserForm(instance=row_obj)
-        return render(request,'theUserlist_edit.html',{'form':form})
+        # 判断是否存在借订记录
+        theUser_fk_theBorrow_fk_theBook = []
+        for fk in row_obj.theborrow_set.all():
+            booklist = fk.theBorrow_theBook.theBook_name if fk else 'no-data'
+            theUser_fk_theBorrow_fk_theBook.append(booklist)
+            print(theUser_fk_theBorrow_fk_theBook)
+        return render(request,'theUserlist_edit.html',{'form':form,'theUser_fk_theBorrow_fk_theBook':theUser_fk_theBorrow_fk_theBook,})
     
     # 用户POST请求提交数据,需要进行数据校验
     form = theUserForm(data=request.POST,files=request.FILES, instance=row_obj)

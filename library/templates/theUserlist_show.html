@@ -18,7 +18,8 @@
                         <th scope="col">用户名称</th>
                         <th scope="col">用户电话</th>
                         <th scope="col">生效状态</th>
-                        <th scope="col">借订书籍</th>
+                        <th scope="col">已归还</th>
+                        <th scope="col">借订中</th>
                         <th scope="col">操作</th>
                     </tr>
                 </thead>
@@ -37,7 +38,20 @@
                     <td>{{ theUser.theUser_name }}</td>
                     <td>{{ theUser.theUser_phone }}</td>
                     <td>{{ theUser.theUser_status1 }}</td>
-                    <td>{{ theUser.theUser_status2 }}</td>
+                    <td>
+                        {% for object in theUser.theborrow_set.all %}
+                            {% if object.theBorrow_status1 == '已归还' %}
+                                <div>{{ forloop.counter }} .《{{ object.theBorrow_theBook.theBook_name }}》</div>
+                            {% endif %}
+                        {% endfor %}
+                    </td>
+                    <td>
+                        {% for object in theUser.theborrow_set.all %}
+                            {% if object.theBorrow_status1 == '借订中' %}
+                                <div>{{ forloop.counter }} .《{{ object.theBorrow_theBook.theBook_name }}》</div>
+                            {% endif %}
+                        {% endfor %}
+                    </td>
                     <td>
                         <a class="btn btn-primary btn-xs" href="/theUserlist_edit/{{ theUser.uid }}/">编辑</a>
                         <a class="btn btn-danger btn-xs" href="/theUserlist_delete/{{ theUser.uid }}/">删除</a>

@@ -41,7 +41,7 @@ class theBookForm(ModelForm):
     class Meta:
         model = theBook
         fields = '__all__'
-        exclude = ['theBook_status2','theBook_status3','theBook_information2',
+        exclude = ['theBook_status1','theBook_status2','theBook_status3','theBook_information2',
                    'theBook_information3','theBook_information4','theBook_information5',]
         error_messages = {
             'theBook_name':{'required':"theBook_name不能为空",},
@@ -81,7 +81,7 @@ class theBorrowForm(ModelForm):
     class Meta:
         model = theBorrow
         fields = '__all__'
-        exclude = ['theBorrow_status2','theBorrow_status3',]
+        exclude = ['theBorrow_duration','theBorrow_status2','theBorrow_status3',]
 
         widgets = {
             "theBorrow_datetime":wid.SelectDateWidget(attrs={"type":"date","class":'ml-3'}) #还可以自定义属性
