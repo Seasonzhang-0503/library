@@ -13,7 +13,7 @@ class location(models.Model):
         verbose_name_plural = ('地点')
 
     def __str__(self):
-        return str(str(self.lid) + '--' + self.location_name)
+        return str(str(self.location_city) + '--' + self.location_name)
 
 
 class category(models.Model):
@@ -31,7 +31,7 @@ class category(models.Model):
         return str(self.category_id + '--' + self.category_keyname + '--' + self.category_subname)
 
 
-THEBOOK_TYPE = (('电子书', '电子书'), ('纸质书', '纸质书'))
+THEBOOK_TYPE = (('电子书', '电子书'), ('纸质书', '纸质书'), ('PPT', 'PPT'),('项目', '项目'), ('视频', '视频'),('其他', '其他'))
 THESTATUS_TYPE = (('已借订', '已借订'), ('未借订', '未借订'))
 
 class theBook(models.Model):
@@ -45,7 +45,7 @@ class theBook(models.Model):
     theBook_status1 = models.CharField(max_length=500,verbose_name=('图书状态1'),choices=THESTATUS_TYPE,)
     theBook_status2 = models.CharField(max_length=500,verbose_name=('图书状态2(备用)'),blank=True, null=True,)
     theBook_status3 = models.CharField(max_length=500,verbose_name=('图书状态3(备用)'),blank=True, null=True,)
-    theBook_id = models.CharField(max_length=500,verbose_name=('图书编号(备用)'),)
+    theBook_id = models.CharField(max_length=500,verbose_name=('图书编号(备用)'),blank=True, null=True,)
     theBook_information1 = models.TextField(max_length=10000,verbose_name=('图书信息1'),blank=True, null=True,)
     theBook_information2 = models.TextField(max_length=10000,verbose_name=('图书信息2(备用)'),blank=True, null=True,)
     theBook_information3 = models.TextField(max_length=10000,verbose_name=('图书信息3(备用)'),blank=True, null=True,)
@@ -64,11 +64,11 @@ class theBook(models.Model):
 THEUSERSTATUS_TYPE = (('active', 'active'), ('inactive', 'inactive'))
 class theUser(models.Model):
     uid = models.AutoField(primary_key=True)
-    theUser_id = models.CharField(max_length=500,verbose_name=('用户ID'),)
     theUser_name = models.CharField(max_length=500,verbose_name=('用户名称'))
     theUser_logo = models.ImageField(max_length=500, blank=True, null=True, verbose_name=('用户LOGO'),upload_to='images')
     theUser_password = models.CharField(max_length=500,verbose_name=('用户密码'))
     theUser_phone = models.CharField(max_length=500,verbose_name=('用户电话'))
+    theUser_id = models.CharField(max_length=500,verbose_name=('用户ID'),blank=True, null=True)
     theUser_status1 = models.CharField(max_length=500,verbose_name=('用户状态1'),choices=THEUSERSTATUS_TYPE)
     theUser_status2 = models.CharField(max_length=500,verbose_name=('用户状态2'),blank=True, null=True,)
     theUser_status3 = models.CharField(max_length=500,verbose_name=('用户状态3'),blank=True, null=True,)
@@ -78,11 +78,11 @@ class theUser(models.Model):
         verbose_name_plural = ('自定义用户')
 
     def __str__(self):
-        return str(self.theUser_id) + '---' + str(self.theUser_name)
+        return str(self.theUser_name)
 
 
 
-THEBORROWSTATUS_TYPE = (('借订中', '借订中'), ('已归还', '已归还'))
+THEBORROWSTATUS_TYPE = (('借订中', '借订中'), ('已归还', '已归还'), ('已学习', '已学习'))
 class theBorrow(models.Model):
     boid = models.AutoField(primary_key=True)
     theBorrow_datetime = models.DateTimeField(max_length=500,verbose_name=('借订日期'))

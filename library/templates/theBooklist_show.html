@@ -13,14 +13,12 @@
                 <thead>
                     <tr style="color:White;background-color:#3366FF;font-family:微軟正黑體,Tahoma,Arial,微軟雅黑體;font-size:15px;">
                         <th scope="col">#</th>
-                        <th scope="col">图书名称</th>
+                        <th scope="col" style="width:20%">图书名称</th>
                         <th scope="col">地点</th>
                         <th scope="col">电子书/纸质书</th>
-                        <th scope="col">分类</th>
+                        <th scope="col" style="width:20%">分类</th>
                         <th scope="col">图书照片</th>
-                        <!-- <th scope="col">图书状态1</th> -->
                         <th scope="col">借订(外键)</th>
-                        <th scope="col">图书编号</th>
                         <th scope="col">操作</th>
                     </tr>
                 </thead>
@@ -32,7 +30,6 @@
                     <td>{{ theBook.theBook_location }}</td>
                     <td>{{ theBook.theBook_type }}</td>
                     <td>{{ theBook.theBook_category }}</td>
-                    <!-- <td>{{ theBook.theBook_logo }}</td> -->
                     <td class="" style="width:100px; height:100px">
                         {% if theBook.theBook_logo %}
                         <a target="_blank" href="{{theBook.theBook_logo.url}}" >
@@ -40,9 +37,7 @@
                         </a>
                         {% endif %}
                     </td>
-                    <!-- <td>{{ theBook.theBook_status1 }}</td> -->
                     <td>{{ theBook.theborrow_set.first.theBorrow_status1|default:'no-data' }}</td>
-                    <td>{{ theBook.theBook_id }}</td>
                     <td>
                         <a class="btn btn-primary btn-xs" href="/theBooklist_edit/{{ theBook.bid }}/">编辑</a>
                         <a class="btn btn-danger btn-xs" href="/theBooklist_delete/{{ theBook.bid }}/">删除</a>

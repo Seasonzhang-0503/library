@@ -13,12 +13,11 @@
                 <thead>
                     <tr style="color:White;background-color:#3366FF;font-family:微軟正黑體,Tahoma,Arial,微軟雅黑體;font-size:15px;">
                         <th scope="col">#</th>
-                        <th scope="col">用户头像</th>
-                        <th scope="col">用户ID</th>
+                        <th scope="col">头像</th>
                         <th scope="col">用户名称</th>
                         <th scope="col">用户电话</th>
                         <th scope="col">生效状态</th>
-                        <th scope="col">已归还</th>
+                        <th scope="col">已学习/已归还</th>
                         <th scope="col">借订中</th>
                         <th scope="col">操作</th>
                     </tr>
@@ -27,20 +26,19 @@
                 {% for theUser in theUserlist %}
                 <tr valign="middle" style="color:Black;border-color:#E0E0E0;font-size:15px;"></tr>
                     <td>{{ theUser.uid }}</td>
-                    <td class="" style="width:100px; height:100px">
+                    <td class="" style="width:60px; height:60px">
                         {% if theUser.theUser_logo %}
                         <a target="_blank" href="{{theUser.theUser_logo.url}}" >
-                            <img src="{{theUser.theUser_logo.url}}" alt="{{theUser.theUser_logo.url}}" width="100px" height="100px"></img>
+                            <img src="{{theUser.theUser_logo.url}}" alt="{{theUser.theUser_logo.url}}" width="60px" height="60px"></img>
                         </a>
                         {% endif %}
                     </td>
-                    <td>{{ theUser.theUser_id }}</td>
                     <td>{{ theUser.theUser_name }}</td>
                     <td>{{ theUser.theUser_phone }}</td>
                     <td>{{ theUser.theUser_status1 }}</td>
                     <td>
                         {% for object in theUser.theborrow_set.all %}
-                            {% if object.theBorrow_status1 == '已归还' %}
+                            {% if object.theBorrow_status1 == '已归还' or object.theBorrow_status1 == '已学习' %}
                                 <div>{{ forloop.counter }} .《{{ object.theBorrow_theBook.theBook_name }}》</div>
                             {% endif %}
                         {% endfor %}

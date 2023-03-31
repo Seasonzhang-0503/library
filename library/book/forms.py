@@ -41,7 +41,7 @@ class theBookForm(ModelForm):
     class Meta:
         model = theBook
         fields = '__all__'
-        exclude = ['theBook_status1','theBook_status2','theBook_status3','theBook_information2',
+        exclude = ['theBook_id','theBook_attachment','theBook_status1','theBook_status2','theBook_status3','theBook_information2',
                    'theBook_information3','theBook_information4','theBook_information5',]
         error_messages = {
             'theBook_name':{'required':"theBook_name不能为空",},
@@ -176,7 +176,7 @@ class theUserForm(ModelForm):
     class Meta:
         model = theUser
         fields = '__all__'
-        exclude = ['theUser_status2','theUser_status3',]
+        exclude = ['theUser_id','theUser_status2','theUser_status3',]
 
         widgets = {
             "theUser_password":wid.PasswordInput()
