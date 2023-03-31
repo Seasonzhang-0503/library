@@ -129,7 +129,19 @@ def locationlist_delete(request,lid):
 
 
 def theBooklist_show(request):
-    theBooklist = theBook.objects.all()
+    theBooklist_all = theBook.objects.all()
+    querybookname = request.POST.get('querybookname')
+    querybookcategory = request.POST.get('querybookcategory')
+    querybooktype = request.POST.get('querybooktype')
+
+    theBooklist = theBooklist_all
+    if querybookname:
+        theBooklist = theBooklist_all.filter(theBook_name__icontains=querybookname)
+    if querybookcategory:
+        # 外键查询
+        theBooklist = theBooklist.filter(theBook_category__category_keyname__icontains=querybookcategory)
+    if querybooktype:
+        theBooklist = theBooklist.filter(theBook_type__icontains=querybooktype)
 
     context = {
         'theBooklist':theBooklist,
@@ -164,7 +176,9 @@ def theBooklist_edit(request,bid):
         form = theBookForm(instance=row_obj)
 
         # 三元表达式：判断是否存在借订记录
-        theBook_fk_theBorrow_status1 = row_obj.theborrow_set.first().theBorrow_status1 if row_obj.theborrow_set.first() else 'no-data'
+        theBook_fk_theBorrow_status1 = ''
+        if row_obj.theBook_type == '纸质书':
+            theBook_fk_theBorrow_status1 = row_obj.theborrow_set.first().theBorrow_status1 if row_obj.theborrow_set.first() else 'no-data'
         print(theBook_fk_theBorrow_status1)
         return render(request,'theBooklist_edit.html',{'form':form,'theBook_fk_theBorrow_status1':theBook_fk_theBorrow_status1,})
     
@@ -359,3 +373,10 @@ def theBorrowlist_user_modal_new(request):
         "error":'fail',
     }
     return JsonResponse(result)
+
+
+
+
+def getQueryBookForm(request):
+    form_obj = QueryBookForm(auto_id=True)
+    return render(request, 'theBooklist_query.html', {'form_obj':form_obj})

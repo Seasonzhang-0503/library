@@ -205,3 +205,13 @@ class theUserForm(ModelForm):
                     "class": "form-control",
                 }
 
+
+
+querybookcategory_choices = [('人力资源', '人力资源'), ('后端', '后端')]
+
+class QueryBookForm(forms.Form):
+    querybookname = forms.CharField(label='图书名称')
+    querybookcategory = forms.MultipleChoiceField(label='图书分类',choices=querybookcategory_choices,)
+    querybooktype = forms.ChoiceField(label='图书类型',choices=[('', ''),('电子书', '电子书'), ('纸质书', '纸质书')],)
+
+

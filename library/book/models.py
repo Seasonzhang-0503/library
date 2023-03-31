@@ -57,7 +57,6 @@ class theBook(models.Model):
         verbose_name_plural = ('图书')
 
     def __str__(self):
-        # return str(self.theBook_id+ '--' +self.theBook_name)
         return str(self.theBook_name)
 
 
@@ -82,7 +81,7 @@ class theUser(models.Model):
 
 
 
-THEBORROWSTATUS_TYPE = (('借订中', '借订中'), ('已归还', '已归还'), ('已学习', '已学习'))
+THEBORROWSTATUS_TYPE = (('借订中', '借订中'), ('已归还', '已归还'), ('已学习', '已学习'), ('学习中', '学习中'))
 class theBorrow(models.Model):
     boid = models.AutoField(primary_key=True)
     theBorrow_datetime = models.DateTimeField(max_length=500,verbose_name=('借订日期'))

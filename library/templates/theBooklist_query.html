@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block body_block %}
+<div class="container">
+    <div class="row py-4 align-items-center">
+        
+        <!--展示显示人员-->
+        <div class="col-lg-12 col-md-12 mt-0 table-responsive"  style="background-color: #fff;">
+            <!--表单-->
+            <h3 class="font-weight-bold">图书清单-查询</h3>
+            <br>
+            <form action="/theBooklist_show/" method="post" novalidate>
+                {% csrf_token %}
+                {{ form_obj.as_p }}
+                <button type="submit" class="btn btn-primary">query</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<br>
+<br>
+<br>
+<br>
+<br>
+{% endblock %}

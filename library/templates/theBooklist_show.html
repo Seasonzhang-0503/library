@@ -37,7 +37,12 @@
                         </a>
                         {% endif %}
                     </td>
-                    <td>{{ theBook.theborrow_set.first.theBorrow_status1|default:'no-data' }}</td>
+                    <!-- 如果是电子书，则不用记录状态了 -->
+                    {% if theBook.theBook_type == '纸质书' %}
+                        <td>{{ theBook.theborrow_set.first.theBorrow_status1|default:'no-data' }}</td>
+                    {% else %}
+                        <td></td>
+                    {% endif %}
                     <td>
                         <a class="btn btn-primary btn-xs" href="/theBooklist_edit/{{ theBook.bid }}/">编辑</a>
                         <a class="btn btn-danger btn-xs" href="/theBooklist_delete/{{ theBook.bid }}/">删除</a>

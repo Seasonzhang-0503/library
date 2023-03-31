@@ -40,6 +40,7 @@ urlpatterns = [
 
     # theBook增删改查
     path('theBooklist_show/', views.theBooklist_show, name='theBooklist_show'),
+    path('getQueryBookForm/', views.getQueryBookForm, name='getQueryBookForm'),
     path('theBooklist_new/', views.theBooklist_new, name='theBooklist_new'),
     path('theBooklist_edit/<int:bid>/', views.theBooklist_edit,name='theBooklist_edit'),
     path('theBooklist_delete/<int:bid>/', views.theBooklist_delete,name='theBooklist_delete'),
