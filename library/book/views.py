@@ -130,7 +130,7 @@ def locationlist_delete(request,lid):
 
 def theBooklist_show(request):
     theBooklist = theBook.objects.all()
-    
+
     context = {
         'theBooklist':theBooklist,
     }
@@ -162,10 +162,14 @@ def theBooklist_edit(request,bid):
 
     if request.method == "GET":
         form = theBookForm(instance=row_obj)
-        return render(request,'theBooklist_edit.html',{'form':form})
+
+        # 三元表达式：判断是否存在借订记录
+        theBook_fk_theBorrow_status1 = row_obj.theborrow_set.first().theBorrow_status1 if row_obj.theborrow_set.first() else 'no-data'
+        print(theBook_fk_theBorrow_status1)
+        return render(request,'theBooklist_edit.html',{'form':form,'theBook_fk_theBorrow_status1':theBook_fk_theBorrow_status1,})
     
     # 用户POST请求提交数据,需要进行数据校验
-    form = theBookForm(data=request.POST,files=request.FILES, instance=row_obj) 
+    form = theBookForm(data=request.POST,files=request.FILES, instance=row_obj)
     if form.is_valid():
         print(form.cleaned_data)
         # 直接保存至数据库
