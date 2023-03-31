@@ -26,6 +26,7 @@ class category(models.Model):
     class Meta:
         verbose_name = ('分类')
         verbose_name_plural = ('分类')
+        ordering = ['category_id'] # 返回值排序
 
     def __str__(self):
         return str(self.category_id + '--' + self.category_keyname + '--' + self.category_subname)
@@ -55,6 +56,8 @@ class theBook(models.Model):
     class Meta:
         verbose_name = ('图书')
         verbose_name_plural = ('图书')
+        ordering = ['theBook_category'] # 返回值排序
+
 
     def __str__(self):
         return str(self.theBook_name)
@@ -95,6 +98,9 @@ class theBorrow(models.Model):
     class Meta:
         verbose_name = ('借订')
         verbose_name_plural = ('借订')
+        ordering = ['theBorrow_datetime'] # 返回值排序
+        unique_together = [['theBorrow_theUser','theBorrow_theBook']] # 联合唯一
+
 
     def __str__(self):
         return str(self.boid)+ '--' +str(self.theBorrow_theUser)

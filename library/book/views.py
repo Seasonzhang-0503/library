@@ -130,15 +130,17 @@ def locationlist_delete(request,lid):
 
 def theBooklist_show(request):
     theBooklist_all = theBook.objects.all()
+    print('request.POST',request.POST.get('querybookcategory'))
     querybookname = request.POST.get('querybookname')
+    # getlist呈现多选值
     querybookcategory = request.POST.get('querybookcategory')
     querybooktype = request.POST.get('querybooktype')
+    print('querybookname',querybookname,'querybookcategory',querybookcategory,'querybooktype',querybooktype)
 
     theBooklist = theBooklist_all
     if querybookname:
         theBooklist = theBooklist_all.filter(theBook_name__icontains=querybookname)
     if querybookcategory:
-        # 外键查询
         theBooklist = theBooklist.filter(theBook_category__category_keyname__icontains=querybookcategory)
     if querybooktype:
         theBooklist = theBooklist.filter(theBook_type__icontains=querybooktype)
@@ -216,10 +218,11 @@ def theBorrowlist_show(request):
 
 
 def theBorrowlist_new(request):
+    errorMsg = ''
 
     if request.method == "GET":
         form = theBorrowForm()
-        return render(request,'theBorrowlist_new.html',{'form':form})
+        return render(request,'theBorrowlist_new.html',{'form':form,'errorMsg':errorMsg})
     
     # 用户POST请求提交数据,需要进行数据校验
     form = theBorrowForm(data=request.POST,files=request.FILES)
@@ -228,8 +231,10 @@ def theBorrowlist_new(request):
         # 直接保存至数据库
         form.save()
         return redirect("/theBorrowlist_show/")
-
-    return render(request,'theBorrowlist_new.html',{'form':form})
+    else:
+        errorMsg = '数据验证失败，请重新检查'
+       
+    return render(request,'theBorrowlist_new.html',{'form':form,'errorMsg':errorMsg})
 
 
 

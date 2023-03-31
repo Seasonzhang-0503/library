@@ -207,11 +207,23 @@ class theUserForm(ModelForm):
 
 
 
-querybookcategory_choices = [('人力资源', '人力资源'), ('后端', '后端')]
+#想办法取出多选框的选项
+#querylist <QuerySet [{'category_keyname': '人力资源'}, {'category_keyname': '人力资源'}, {'category_keyname': '后端'}, {'category_keyname': '前端'}, {'category_keyname': '前端'}, {'category_keyname': '人力资源'}, {'category_keyname': '后端'}, {'category_keyname': '前端'}, {'category_keyname': '后端'}, {'category_keyname': 'Git'}, {'category_keyname': '后端'}, {'category_keyname': '服务器'}, {'category_keyname': '数据'}]>
+querylist = category.objects.all().values('category_keyname')
+# print('querylist',querylist)
+query_set = set()
+querybookcategory_choices = [('',''),]
+for q in querylist:
+    query_set.add(q['category_keyname'])
+for qs in query_set:
+    querybookcategory_choices.append((qs,qs))
+# querybookcategory_choices = [('人力资源', '人力资源'), ('后端', '后端')]
+print('querybookcategory_choices',querybookcategory_choices)
+
 
 class QueryBookForm(forms.Form):
     querybookname = forms.CharField(label='图书名称')
-    querybookcategory = forms.MultipleChoiceField(label='图书分类',choices=querybookcategory_choices,)
+    querybookcategory = forms.ChoiceField(label='图书分类',choices=querybookcategory_choices)
     querybooktype = forms.ChoiceField(label='图书类型',choices=[('', ''),('电子书', '电子书'), ('纸质书', '纸质书')],)
 
 
