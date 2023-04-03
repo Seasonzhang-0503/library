@@ -8,7 +8,7 @@ from django.contrib.auth.models import AbstractUser
 THEUSERSTATUS_TYPE = (('active', 'active'), ('inactive', 'inactive'))
 class User(AbstractUser):
     # 继承并重写
-    dept = models.IntegerField(verbose_name=('部门'),blank=True, null=True,)
+    dept = models.CharField(max_length=500,verbose_name=('部门'),blank=True, null=True,)
     age = models.IntegerField(verbose_name=('年龄'),blank=True, null=True,)
     mobilenumber = models.CharField(max_length=500,verbose_name=('电话号码'),blank=True, null=True,)
     role = models.CharField(max_length=500,verbose_name=('角色'),blank=True, null=True,)
@@ -107,4 +107,6 @@ class theBorrow(models.Model):
     def __str__(self):
         return str(self.boid)+ '--' +str(self.theBorrow_theUser)
     
+
+
 

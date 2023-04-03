@@ -7,7 +7,7 @@ from django.shortcuts import render, redirect
 from django.views.decorators.csrf import csrf_exempt
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth import authenticate,login,logout
-
+from django.contrib.auth.hashers import make_password, check_password
 
 
 
@@ -348,9 +348,18 @@ def theUserlist_new(request):
     # 用户POST请求提交数据,需要进行数据校验
     form = theUserForm(data=request.POST,files=request.FILES)
     if form.is_valid():
-        # print(form.cleaned_data)
+        print(form.cleaned_data)
+        
         # 直接保存至数据库
         form.save()
+
+                
+        # 处理密码，才能user登录。
+        username = form.cleaned_data['username']
+        some_user = User.objects.filter(username = username).first()
+        some_user.password =  make_password(form.cleaned_data['password'])
+        some_user.save()
+        
         return redirect("/theUserlist_show/")
 
     return render(request,'theUserlist_new.html',{'form':form})
@@ -374,8 +383,16 @@ def theUserlist_edit(request,id):
     form = theUserForm(data=request.POST,files=request.FILES, instance=row_obj)
     if form.is_valid():
         # print(form.cleaned_data)
+        
         # 直接保存至数据库
         form.save()
+
+        # 处理密码，才能user登录。
+        username = form.cleaned_data['username']
+        some_user = User.objects.filter(username = username).first()
+        some_user.password =  make_password(form.cleaned_data['password'])
+        some_user.save()
+
         return redirect("/theUserlist_show/")
 
     return render(request,'theUserlist_edit.html',{'form':form})
@@ -476,6 +493,7 @@ def user_login(request):
                 pass
         else:
             pass
+            return render(request,'user_login.html',{'error':'username and passwd error.'})
             ### 登录验证
             # keycloak_openid = KeycloakOpenID(
             #     server_url="https://keycloak-wzs.wistron.com/auth/",
