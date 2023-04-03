@@ -5,7 +5,7 @@ from .models import *
 from .forms import *
 from django.shortcuts import render, redirect
 from django.views.decorators.csrf import csrf_exempt
-
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
 def home(request):
@@ -128,7 +128,7 @@ def locationlist_delete(request,lid):
 
 
 
-def theBooklist_show(request):
+def theBooklist_show(request,page):
     theBooklist_all = theBook.objects.all()
     print('request.POST',request.POST.get('querybookcategory'))
     querybookname = request.POST.get('querybookname')
@@ -145,11 +145,24 @@ def theBooklist_show(request):
     if querybooktype:
         theBooklist = theBooklist.filter(theBook_type__icontains=querybooktype)
 
+    # 添加分页功能
+    paginator = Paginator(theBooklist, 2)
+    try:
+        page_obj = paginator.page(page)
+    except PageNotAnInteger:
+        # 如果参数page 的数据类型不是整型，就返回第一页数据
+        page_obj = paginator.page(1)
+    except EmptyPage:
+        # 若用户访问的页数大于实际页数，则返回最后一页的数据
+        page_obj = paginator.page(paginator.num_pages)
+    page_range = page_obj.paginator.page_range
+   
+   
     context = {
         'theBooklist':theBooklist,
     }
 
-    return render(request,'theBooklist_show.html',context)
+    return render(request,'theBooklist_show.html',locals())
 
 
 
@@ -266,6 +279,31 @@ def theBorrowlist_delete(request,boid):
 
 
 
+
+def theBorrowlist_new_default(request,bid,uid=1):
+    errorMsg = ''
+    obj = theBook.objects.filter(bid=bid).first()
+    userobj = theUser.objects.filter(uid=uid).first()
+
+    if request.method == "GET":
+        # 附带信息提交
+        form = theBorrowForm({'theBorrow_theUser':userobj,
+                              'theBorrow_theBook':obj,
+                              'theBorrow_status1':'借订中'
+                              })
+        return render(request,'theBorrowlist_new.html',{'form':form,'errorMsg':errorMsg})
+
+    # 用户POST请求提交数据,需要进行数据校验
+    form = theBorrowForm(data=request.POST,files=request.FILES)
+    if form.is_valid():
+        # print(form.cleaned_data)
+        # 直接保存至数据库
+        form.save()
+        return redirect("/theBorrowlist_show/")
+    else:
+        errorMsg = '数据验证失败，请重新检查'
+       
+    return render(request,'theBorrowlist_new.html',{'form':form,'errorMsg':errorMsg})
 
 
 

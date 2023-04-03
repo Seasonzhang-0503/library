@@ -39,7 +39,8 @@ urlpatterns = [
     path('categorylist_delete/<int:cid>/', views.categorylist_delete,name='categorylist_delete'),
 
     # theBook增删改查
-    path('theBooklist_show/', views.theBooklist_show, name='theBooklist_show'),
+    # path('theBooklist_show/', views.theBooklist_show, name='theBooklist_show'),
+    path('theBooklist_show/<int:page>/',views.theBooklist_show,name='theBooklist_show'),
     path('getQueryBookForm/', views.getQueryBookForm, name='getQueryBookForm'),
     path('theBooklist_new/', views.theBooklist_new, name='theBooklist_new'),
     path('theBooklist_edit/<int:bid>/', views.theBooklist_edit,name='theBooklist_edit'),
@@ -50,7 +51,9 @@ urlpatterns = [
     path('theBorrowlist_new/', views.theBorrowlist_new, name='theBorrowlist_new'),
     path('theBorrowlist_edit/<int:boid>/', views.theBorrowlist_edit,name='theBorrowlist_edit'),
     path('theBorrowlist_delete/<int:boid>/', views.theBorrowlist_delete,name='theBorrowlist_delete'),
+    path('theBorrowlist_new_default/<int:bid>/', views.theBorrowlist_new_default,name='theBorrowlist_new_default'),
 
+    
     # theUser增删改查
     path('theUserlist_show/', views.theUserlist_show, name='theUserlist_show'),
     path('theUserlist_new/', views.theUserlist_new, name='theUserlist_new'),

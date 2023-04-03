@@ -23,7 +23,8 @@
                     </tr>
                 </thead>
             
-                {% for theBook in theBooklist %}
+                <!-- for theBook in theBooklist -->
+                {% for theBook in page_obj.object_list %}
                 <tr valign="middle" style="color:Black;border-color:#E0E0E0;font-size:15px;"></tr>
                     <td>{{ theBook.bid }}</td>
                     <td>{{ theBook.theBook_name }}</td>
@@ -46,12 +47,50 @@
                     <td>
                         <a class="btn btn-primary btn-xs" href="/theBooklist_edit/{{ theBook.bid }}/">编辑</a>
                         <a class="btn btn-danger btn-xs" href="/theBooklist_delete/{{ theBook.bid }}/">删除</a>
-                        <a class="btn btn-danger btn-xs" href="/book_for_theBorrowlist_add/{{ theBook.boid }}/">借订</a>
+                        <a class="btn btn-info btn-xs" href="/theBorrowlist_new_default/{{ theBook.bid }}/">借订</a>
                     </td>
                 </tr>
                 {% endfor %}
                 
             </table>
+
+                <!--分页功能-->
+                <div class="pagination">
+                    <span class="step-links">
+                        {% if page_obj.has_previous %}
+                            <a href="/theBooklist_show/1/">&laquo; first</a>
+                            <a href="/theBooklist_show/{{ page_obj.previous_page_number }}/">previous</a>
+                        {% endif %}
+                
+                        <span class="current">
+                             {{ page_obj.number }} / {{ page_obj.paginator.num_pages }}
+                        </span>
+                
+                        {% if page_obj.has_next %}
+                            <a href="/theBooklist_show/{{ page_obj.next_page_number }}/">next</a>
+                            <a href="/theBooklist_show/{{ page_obj.paginator.num_pages }}/">last &raquo;</a>
+                        {% endif %}
+                    </span>
+                </div>
+                <!-- <div class="pagelist">
+                    {% if pageInfo.has_previous %}
+                        <a href="{% url 'theBooklist_show' pageInfo.previous_page_number %}">上一页</a>
+                    {% endif %}
+                    
+                    {% if pageInfo.object_list %}
+                    {% for page in pageInfo.paginator.page_range %}
+                        {% if pageInfo.number == page %}
+                            {{ page }}
+                        {% else %}
+                            <a href="{% url 'theBooklist_show' page %}">{{ page }}</a>
+                        {% endif %}
+                    {% endfor %}
+                    {% endif %}
+                    
+                    {% if pageInfo.has_next %}
+                        <a href="{% url 'theBooklist_show' pageInfo.next_page_number %}">下一页</a>
+                    {% endif %}
+                    </div> -->
 
         </div>
     </div>

@@ -10,7 +10,7 @@
             <!--表单-->
             <h3 class="font-weight-bold">图书清单-查询</h3>
             <br>
-            <form action="/theBooklist_show/" method="post" novalidate>
+            <form action="/theBooklist_show/1/" method="post" novalidate>
                 {% csrf_token %}
                 {{ form_obj.as_p }}
                 <button type="submit" class="btn btn-primary">query</button>
