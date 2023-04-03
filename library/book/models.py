@@ -1,6 +1,14 @@
 from django.db import models
 from django import forms
 from django.forms import ModelForm
+from django.contrib.auth.models import AbstractUser
+
+
+class User(AbstractUser):
+    age = models.IntegerField(verbose_name=('年龄'),blank=True, null=True,)
+    mobilenumber = models.CharField(max_length=500,verbose_name=('电话号码'),blank=True, null=True,)
+    # userlink =  models.OneToOneField(AbstractUser, on_delete=models.CASCADE, default=None, null=True)
+
 
 class location(models.Model):
     lid = models.AutoField(primary_key=True)
