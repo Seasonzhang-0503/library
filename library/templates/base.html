@@ -87,15 +87,15 @@
         {% if user.is_authenticated %}
            
             <div class="nav-item dropdown">
-                <a class="nav-link active font-weight-bold text-info dropdown-toggle" href="/list/" id="navbarDropdown" role="button" data-toggle="dropdown">
+                <a class="nav-link active font-weight-bold text-info dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown">
                     用户管理
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="/suggestion_list/">注册</a>
+                    <a class="dropdown-item" href="/theUserlist_new/">注册</a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="/dept_review_list/">修改信息</a>
+                    <a class="dropdown-item" href="/theUserlist_edit/{{ request.user.id }}/">修改信息</a>
                     <div class="dropdown-divider"></div>
-                    <a class="float-right mx-1 dropdown-item" href="/user_logout/">登出</a>
+                    <a class="dropdown-item" href="/user_logout/">登出</a>
                 </div>
             </div>
             Welcome {{ user.username }}

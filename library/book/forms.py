@@ -184,11 +184,10 @@ class theUserForm(ModelForm):
             "password":wid.PasswordInput(render_value = True) # render_value = True显示值
         }
 
-        # labels= {
-        #     "theUser_logo":"用户头像",
-        #     "theUser_status1":"生效状态",
-        #     "theUser_status2":"借订书籍",
-        # }
+        labels= {
+            "username":"用户名",
+            "password":"密码",
+        }
 
         
     # 循环找到所有的插件,加入css样式,添加 "class": "form-control"
