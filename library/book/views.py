@@ -352,14 +352,7 @@ def theUserlist_new(request):
         
         # 直接保存至数据库
         form.save()
-
-                
-        # 处理密码，才能user登录。
-        username = form.cleaned_data['username']
-        some_user = User.objects.filter(username = username).first()
-        some_user.password =  make_password(form.cleaned_data['password'])
-        some_user.save()
-        
+   
         return redirect("/theUserlist_show/")
 
     return render(request,'theUserlist_new.html',{'form':form})
@@ -386,12 +379,6 @@ def theUserlist_edit(request,id):
         
         # 直接保存至数据库
         form.save()
-
-        # 处理密码，才能user登录。
-        username = form.cleaned_data['username']
-        some_user = User.objects.filter(username = username).first()
-        some_user.password =  make_password(form.cleaned_data['password'])
-        some_user.save()
 
         return redirect("/theUserlist_show/")
 
