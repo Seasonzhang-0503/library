@@ -22,7 +22,7 @@
                         <th scope="col">操作</th>
                     </tr>
                 </thead>
-            
+
                 <!-- for theBook in theBooklist -->
                 {% for theBook in page_obj.object_list %}
                 <tr valign="middle" style="color:Black;border-color:#E0E0E0;font-size:15px;"></tr>
@@ -72,25 +72,7 @@
                         {% endif %}
                     </span>
                 </div>
-                <!-- <div class="pagelist">
-                    {% if pageInfo.has_previous %}
-                        <a href="{% url 'theBooklist_show' pageInfo.previous_page_number %}">上一页</a>
-                    {% endif %}
-                    
-                    {% if pageInfo.object_list %}
-                    {% for page in pageInfo.paginator.page_range %}
-                        {% if pageInfo.number == page %}
-                            {{ page }}
-                        {% else %}
-                            <a href="{% url 'theBooklist_show' page %}">{{ page }}</a>
-                        {% endif %}
-                    {% endfor %}
-                    {% endif %}
-                    
-                    {% if pageInfo.has_next %}
-                        <a href="{% url 'theBooklist_show' pageInfo.next_page_number %}">下一页</a>
-                    {% endif %}
-                    </div> -->
+
 
         </div>
     </div>

@@ -146,7 +146,7 @@ def theBooklist_show(request,page):
         theBooklist = theBooklist.filter(theBook_type__icontains=querybooktype)
 
     # 添加分页功能
-    paginator = Paginator(theBooklist, 2)
+    paginator = Paginator(theBooklist, 5)
     try:
         page_obj = paginator.page(page)
     except PageNotAnInteger:
@@ -154,13 +154,11 @@ def theBooklist_show(request,page):
         page_obj = paginator.page(1)
     except EmptyPage:
         # 若用户访问的页数大于实际页数，则返回最后一页的数据
-        page_obj = paginator.page(paginator.num_pages)
-    page_range = page_obj.paginator.page_range
-   
-   
-    context = {
-        'theBooklist':theBooklist,
-    }
+        page_obj = paginator.page(paginator.num_pages) 
+
+    # context = {
+    #     'theBooklist':theBooklist,
+    # }
 
     return render(request,'theBooklist_show.html',locals())
 
@@ -219,14 +217,25 @@ def theBooklist_delete(request,bid):
 
 
 
-def theBorrowlist_show(request):
+def theBorrowlist_show(request,page=1):
     theBorrowlist = theBorrow.objects.all()
     
-    context = {
-        'theBorrowlist':theBorrowlist,
-    }
+    # 添加分页功能
+    paginator = Paginator(theBorrowlist, 5)
+    try:
+        page_obj = paginator.page(page)
+    except PageNotAnInteger:
+        # 如果参数page 的数据类型不是整型，就返回第一页数据
+        page_obj = paginator.page(1)
+    except EmptyPage:
+        # 若用户访问的页数大于实际页数，则返回最后一页的数据
+        page_obj = paginator.page(paginator.num_pages) 
 
-    return render(request,'theBorrowlist_show.html',context)
+    # context = {
+    #     'theBorrowlist':theBorrowlist,
+    # }
+
+    return render(request,'theBorrowlist_show.html',locals())
 
 
 
@@ -309,14 +318,26 @@ def theBorrowlist_new_default(request,bid,uid=1):
 
 
 
-def theUserlist_show(request):
+def theUserlist_show(request,page=1):
     theUserlist = theUser.objects.all()
     
-    context = {
-        'theUserlist':theUserlist,
-    }
+    # context = {
+    #     'theUserlist':theUserlist,
+    # }
 
-    return render(request,'theUserlist_show.html',context)
+    # 添加分页功能
+    paginator = Paginator(theUserlist, 5)
+    try:
+        page_obj = paginator.page(page)
+    except PageNotAnInteger:
+        # 如果参数page 的数据类型不是整型，就返回第一页数据
+        page_obj = paginator.page(1)
+    except EmptyPage:
+        # 若用户访问的页数大于实际页数，则返回最后一页的数据
+        page_obj = paginator.page(paginator.num_pages) 
+
+
+    return render(request,'theUserlist_show.html',locals())
 
 
 

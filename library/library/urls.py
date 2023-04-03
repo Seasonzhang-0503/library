@@ -48,6 +48,7 @@ urlpatterns = [
 
     # theBorrow增删改查
     path('theBorrowlist_show/', views.theBorrowlist_show, name='theBorrowlist_show'),
+    path('theBorrowlist_show/<int:page>/', views.theBorrowlist_show, name='theBorrowlist_show'),
     path('theBorrowlist_new/', views.theBorrowlist_new, name='theBorrowlist_new'),
     path('theBorrowlist_edit/<int:boid>/', views.theBorrowlist_edit,name='theBorrowlist_edit'),
     path('theBorrowlist_delete/<int:boid>/', views.theBorrowlist_delete,name='theBorrowlist_delete'),
@@ -56,6 +57,7 @@ urlpatterns = [
     
     # theUser增删改查
     path('theUserlist_show/', views.theUserlist_show, name='theUserlist_show'),
+    path('theUserlist_show/<int:page>/', views.theUserlist_show, name='theUserlist_show'),
     path('theUserlist_new/', views.theUserlist_new, name='theUserlist_new'),
     path('theUserlist_edit/<int:uid>/', views.theUserlist_edit,name='theUserlist_edit'),
     path('theUserlist_delete/<int:uid>/', views.theUserlist_delete,name='theUserlist_delete'),
