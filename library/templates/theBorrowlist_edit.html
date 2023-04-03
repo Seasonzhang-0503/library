@@ -13,6 +13,20 @@
                 <form method="post" id="formSave" enctype="multipart/form-data">
                     {% csrf_token %}
                     <div>
+                        <!-- 手动添加其他数据 -->
+                        <div class="col-xs-6">
+                            <div class="form-group" style="position: relative; margin-top: 5px">
+                                <div>借订创建时间</div>
+                                <input type="text" value="{{ object_theBorrow_add_datetime }}" readonly="true" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-xs-6">
+                            <div class="form-group" style="position: relative; margin-top: 5px">
+                                <div>借订修改时间</div>
+                                <input type="text" value="{{ object_theBorrow_update_datetime }}" readonly="true" class="form-control">
+                            </div>
+                        </div>
+
                         {% for item in form %}
                         <div class="col-xs-6">
                             <div class="form-group" style="position: relative; margin-top: 5px">

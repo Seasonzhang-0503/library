@@ -34,7 +34,7 @@ admin.site.register(location,locationAdmin)
 
 class theBorrowAdmin(admin.ModelAdmin):
 
-    list_display = ('boid','theBorrow_datetime')
+    list_display = ('boid','theBorrow_add_datetime')
 
 admin.site.register(theBorrow,theBorrowAdmin)
 

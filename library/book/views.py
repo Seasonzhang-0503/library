@@ -243,7 +243,10 @@ def theBorrowlist_edit(request,boid):
 
     if request.method == "GET":
         form = theBorrowForm(instance=row_obj)
-        return render(request,'theBorrowlist_edit.html',{'form':form})
+        object_theBorrow_add_datetime = row_obj.theBorrow_add_datetime if row_obj.theBorrow_add_datetime else 'no-data'
+        object_theBorrow_update_datetime = row_obj.theBorrow_update_datetime if row_obj.theBorrow_update_datetime else 'no-data'
+
+        return render(request,'theBorrowlist_edit.html',locals())
     
     # 用户POST请求提交数据,需要进行数据校验
     form = theBorrowForm(data=request.POST,files=request.FILES, instance=row_obj)

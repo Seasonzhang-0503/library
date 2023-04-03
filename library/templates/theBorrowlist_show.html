@@ -13,7 +13,8 @@
                 <thead>
                     <tr style="color:White;background-color:#3366FF;font-family:微軟正黑體,Tahoma,Arial,微軟雅黑體;font-size:15px;">
                         <th scope="col">#</th>
-                        <th scope="col">借订日期</th>
+                        <th scope="col">借订创建日期</th>
+                        <th scope="col">借订更新日期</th>   
                         <th scope="col">借订人</th>
                         <th scope="col">借订书籍</th>
                         <th scope="col">借订状态1</th>
@@ -24,7 +25,8 @@
                 {% for theBorrow in theBorrowlist %}
                 <tr valign="middle" style="color:Black;border-color:#E0E0E0;font-size:15px;"></tr>
                     <td>{{ theBorrow.boid }}</td>
-                    <td>{{ theBorrow.theBorrow_datetime }}</td>
+                    <td>{{ theBorrow.theBorrow_add_datetime|date:"Y-m-d" }}</td>
+                    <td>{{ theBorrow.theBorrow_update_datetime|date:"Y-m-d" }}</td>
                     <td>{{ theBorrow.theBorrow_theUser }}</td>
                     <td>{{ theBorrow.theBorrow_theBook }}</td>
                     <td>{{ theBorrow.theBorrow_status1 }}</td>

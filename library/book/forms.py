@@ -112,7 +112,8 @@ class theBorrowModalAddForm(ModelForm):
         exclude = ['theBorrow_status2','theBorrow_status3',]
 
         widgets = {
-            "theBorrow_datetime":wid.SelectDateWidget(attrs={"type":"date","class":'ml-3'}), #还可以自定义属性
+            "theBorrow_add_datetime":wid.SelectDateWidget(attrs={"type":"date","class":'ml-3'}), #还可以自定义属性
+            "theBorrow_update_datetime":wid.SelectDateWidget(attrs={"type":"date","class":'ml-3'}), #还可以自定义属性
             # "theBorrow_datetime":wid.DateTimeInput(attrs={"type":"text"}),
             "theBorrow_theUser":wid.Select(),
             "theBorrow_theBook":wid.Select(),
@@ -179,7 +180,7 @@ class theUserForm(ModelForm):
         exclude = ['theUser_id','theUser_status2','theUser_status3',]
 
         widgets = {
-            "theUser_password":wid.PasswordInput()
+            "theUser_password":wid.PasswordInput(render_value = True) # render_value = True显示值
         }
 
         labels= {
@@ -209,8 +210,7 @@ class theUserForm(ModelForm):
 
 #想办法取出多选框的选项
 #querylist <QuerySet [{'category_keyname': '人力资源'}, {'category_keyname': '人力资源'}, {'category_keyname': '后端'}, {'category_keyname': '前端'}, {'category_keyname': '前端'}, {'category_keyname': '人力资源'}, {'category_keyname': '后端'}, {'category_keyname': '前端'}, {'category_keyname': '后端'}, {'category_keyname': 'Git'}, {'category_keyname': '后端'}, {'category_keyname': '服务器'}, {'category_keyname': '数据'}]>
-querylist = category.objects.all().values('category_keyname')
-# print('querylist',querylist)
+querylist = category.objects.all().order_by('category_keyname').distinct().values('category_keyname')
 query_set = set()
 querybookcategory_choices = [('',''),]
 for q in querylist:
@@ -221,9 +221,20 @@ for qs in query_set:
 print('querybookcategory_choices',querybookcategory_choices)
 
 
+# querytheBookcategory_choices = [('', ''),('电子书', '电子书'), ('纸质书', '纸质书')]
+querytheBookcategory_list = theBook.objects.all().order_by('theBook_type').distinct().values('theBook_type')
+print('querytheBookcategory_list',querytheBookcategory_list)
+query_set = set()
+querytheBookcategory_choices = [('',''),]
+for q in querytheBookcategory_list:
+    query_set.add(q['theBook_type'])
+for qs in query_set:
+    querytheBookcategory_choices.append((qs,qs))
+
+
 class QueryBookForm(forms.Form):
     querybookname = forms.CharField(label='图书名称')
     querybookcategory = forms.ChoiceField(label='图书分类',choices=querybookcategory_choices)
-    querybooktype = forms.ChoiceField(label='图书类型',choices=[('', ''),('电子书', '电子书'), ('纸质书', '纸质书')],)
+    querybooktype = forms.ChoiceField(label='图书类型',choices=querytheBookcategory_choices,)
 
 

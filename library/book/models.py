@@ -87,7 +87,8 @@ class theUser(models.Model):
 THEBORROWSTATUS_TYPE = (('借订中', '借订中'), ('已归还', '已归还'), ('已学习', '已学习'), ('学习中', '学习中'))
 class theBorrow(models.Model):
     boid = models.AutoField(primary_key=True)
-    theBorrow_datetime = models.DateTimeField(max_length=500,verbose_name=('借订日期'))
+    theBorrow_add_datetime = models.DateTimeField(max_length=500,verbose_name=('创建日期'),auto_now_add=True)
+    theBorrow_update_datetime = models.DateTimeField(max_length=500,verbose_name=('修改日期'),auto_now=True)
     theBorrow_theUser = models.ForeignKey(theUser,on_delete=models.CASCADE) #related_name='borrow_theUser',
     theBorrow_theBook = models.ForeignKey(theBook,on_delete=models.CASCADE)  #,related_name='borrow_theBook'
     theBorrow_duration = models.IntegerField(verbose_name=('借订天数'),blank=True, null=True,)
@@ -98,7 +99,7 @@ class theBorrow(models.Model):
     class Meta:
         verbose_name = ('借订')
         verbose_name_plural = ('借订')
-        ordering = ['theBorrow_datetime'] # 返回值排序
+        # ordering = ['theBorrow_add_datetime'] # 返回值排序
         unique_together = [['theBorrow_theUser','theBorrow_theBook']] # 联合唯一
 
 
