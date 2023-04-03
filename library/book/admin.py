@@ -48,8 +48,8 @@ admin.site.register(theBorrow,theBorrowAdmin)
 
 
 
-class theUserAdmin(admin.ModelAdmin):
+# class theUserAdmin(admin.ModelAdmin):
 
-    list_display = ('uid','theUser_name')
+#     list_display = ('uid','theUser_name')
 
-admin.site.register(theUser,theUserAdmin)
+# admin.site.register(theUser,theUserAdmin)

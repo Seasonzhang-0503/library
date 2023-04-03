@@ -6,9 +6,6 @@ from .forms import *
 from django.shortcuts import render, redirect
 from django.views.decorators.csrf import csrf_exempt
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.contrib.auth import authenticate,login,logout
-
-
 
 
 def home(request):
@@ -292,11 +289,10 @@ def theBorrowlist_delete(request,boid):
 
 
 
-def theBorrowlist_new_default(request,bid):
+def theBorrowlist_new_default(request,bid,uid=1):
     errorMsg = ''
-    id = request.user.id
     obj = theBook.objects.filter(bid=bid).first()
-    userobj = User.objects.filter(id = id).first()
+    userobj = theUser.objects.filter(uid=uid).first()
 
     if request.method == "GET":
         # 附带信息提交
@@ -323,7 +319,12 @@ def theBorrowlist_new_default(request,bid):
 
 
 def theUserlist_show(request,page=1):
-    theUserlist = User.objects.all()
+    theUserlist = theUser.objects.all()
+    
+    # context = {
+    #     'theUserlist':theUserlist,
+    # }
+
     # 添加分页功能
     paginator = Paginator(theUserlist, 5)
     try:
@@ -334,6 +335,7 @@ def theUserlist_show(request,page=1):
     except EmptyPage:
         # 若用户访问的页数大于实际页数，则返回最后一页的数据
         page_obj = paginator.page(paginator.num_pages) 
+
 
     return render(request,'theUserlist_show.html',locals())
 
@@ -357,8 +359,8 @@ def theUserlist_new(request):
 
 
 
-def theUserlist_edit(request,id):
-    row_obj = User.objects.filter(id=id).first()
+def theUserlist_edit(request,uid):
+    row_obj = theUser.objects.filter(uid=uid).first()
 
     if request.method == "GET":
         form = theUserForm(instance=row_obj)
@@ -381,8 +383,8 @@ def theUserlist_edit(request,id):
     return render(request,'theUserlist_edit.html',{'form':form})
 
 
-def theUserlist_delete(request,id):
-    User.objects.get(id=id).delete()
+def theUserlist_delete(request,uid):
+    theUser.objects.get(uid=uid).delete()
     return redirect("/theUserlist_show/")
 
 
@@ -445,89 +447,3 @@ def theBorrowlist_user_modal_new(request):
 def getQueryBookForm(request):
     form_obj = QueryBookForm(auto_id=True)
     return render(request, 'theBooklist_query.html', {'form_obj':form_obj})
-
-
-
-
-
-# 登录视图
-def user_login(request):
-    '''ldap验证模式'''
-    '''0.设定默认密码Z123qweASD'''
-    '''1.django登录成功，login'''
-    '''2.django登录不成功，启动ldap登录'''
-    '''3.用户不存在时,直接pass,不login'''
-    '''不修改默认密码'''
-
-    if request.method == 'POST':
-        username = request.POST.get('username')
-        password = request.POST.get('password')
-        password_django_default = 'Z123qweASD'
-
-        access_token = 0
-
-        # django验证
-        user = authenticate(request,username=username,password=password)
-        if user:
-            if user.is_active:
-                login(request,user)
-                return HttpResponseRedirect('/')
-            else:
-                pass
-        else:
-            pass
-            ### 登录验证
-            # keycloak_openid = KeycloakOpenID(
-            #     server_url="https://keycloak-wzs.wistron.com/auth/",
-            #     client_id="django-rest",
-            #     realm_name="k8sprdtaskpublishingplatform",
-            #     client_secret_key="secret",
-            #     verify=False, )
-            # try:
-            #     token = keycloak_openid.token(username, password)
-            #     access_token = token['access_token']
-                
-            # except Exception as e:
-            #     # return render(request,'user_login.html',{'error':'username and passwd error.'})
-            #     pass
-
-            
-            # if access_token:
-            #     # print('access_token',access_token)
-            #     user = authenticate(request,username=username,password=password_django_default)
-            #     if user:
-            #         if user.is_active:
-            #             login(request,user)
-            #             return HttpResponseRedirect('/')
-            #         else:
-            #             return HttpResponse("Your account is not active.")
-            #     else:
-            #         print("Invalid login detail:{0},{1}".format(username,password))
-            #         return render(request,'user_login.html',{'error':'Invalid login detail'})
-            # else:
-            #     # ldap验证PS92
-            #     status = check_ldap(username,password)
-            #     if status == 200 or status == 302:
-            #         user = authenticate(request,username=username,password=password_django_default)
-            #         if user:
-            #             if user.is_active:
-            #                 login(request,user)
-            #                 return HttpResponseRedirect('/')
-            #             else:
-            #                 return HttpResponse("Your account is not active.")
-            #         else:
-            #             print("Invalid login detail:{0},{1}".format(username,password))
-            #             return render(request,'user_login.html',{'error':'Invalid login detail'})
-            #     return render(request,'user_login.html',{'error':'Invalid login detail'})
-
-    else:
-        # get方式就返回空表
-        return render(request,'user_login.html',{})
-
-
-
-
-# 登出页面
-def user_logout(request):
-    logout(request)
-    return HttpResponseRedirect('/user_login/')

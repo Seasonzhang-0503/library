@@ -115,8 +115,8 @@
         {% if request.user.is_authenticated %}
         <div class="m-3">
             用户：<span class="text-primary">{{ request.user.username }}</span>&nbsp;&nbsp;
-            姓名：<span class="text-primary">{{ request.user.employeeuser.employeename }}</span>&nbsp;&nbsp;
-            角色：<span class="text-primary">{{ request.user.employeeuser.role }}</span>&nbsp;&nbsp;
+            id：<span class="text-primary">{{ request.user.id }}</span>&nbsp;&nbsp;
+            角色：<span class="text-primary">{{ request.user.role }}</span>&nbsp;&nbsp;
         </div>
         {% endif %}
     {% endblock %}

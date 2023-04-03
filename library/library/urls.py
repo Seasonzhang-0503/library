@@ -59,13 +59,18 @@ urlpatterns = [
     path('theUserlist_show/', views.theUserlist_show, name='theUserlist_show'),
     path('theUserlist_show/<int:page>/', views.theUserlist_show, name='theUserlist_show'),
     path('theUserlist_new/', views.theUserlist_new, name='theUserlist_new'),
-    path('theUserlist_edit/<int:uid>/', views.theUserlist_edit,name='theUserlist_edit'),
-    path('theUserlist_delete/<int:uid>/', views.theUserlist_delete,name='theUserlist_delete'),
+    path('theUserlist_edit/<int:id>/', views.theUserlist_edit,name='theUserlist_edit'),
+    path('theUserlist_delete/<int:id>/', views.theUserlist_delete,name='theUserlist_delete'),
 
     # theBorrow_user增删改查
     path('theBorrowlist_user/', views.theBorrowlist_user, name='theBorrowlist_user'),
     path('theBorrowlist_user_modal_show/', views.theBorrowlist_user_modal_show, name='theBorrowlist_user_modal_show'),
     path('theBorrowlist_user_modal_new/', views.theBorrowlist_user_modal_new, name='theBorrowlist_user_modal_new'),
+
+
+    # 登录相关
+    path('user_login/', views.user_login, name='user_login'),
+    path('user_logout/', views.user_logout, name='user_logout'),
 
 
     
