@@ -175,19 +175,20 @@ class theBorrowModalShowForm(ModelForm):
 
 class theUserForm(ModelForm):
     class Meta:
-        model = theUser
-        fields = '__all__'
-        exclude = ['theUser_id','theUser_status2','theUser_status3',]
+        model = User
+        #fields = '__all__'
+        fields = ['username','password','dept','age','mobilenumber','role','theUser_status1',]
+        exclude = []
 
         widgets = {
-            "theUser_password":wid.PasswordInput(render_value = True) # render_value = True显示值
+            "password":wid.PasswordInput(render_value = True) # render_value = True显示值
         }
 
-        labels= {
-            "theUser_logo":"用户头像",
-            "theUser_status1":"生效状态",
-            "theUser_status2":"借订书籍",
-        }
+        # labels= {
+        #     "theUser_logo":"用户头像",
+        #     "theUser_status1":"生效状态",
+        #     "theUser_status2":"借订书籍",
+        # }
 
         
     # 循环找到所有的插件,加入css样式,添加 "class": "form-control"
@@ -208,6 +209,8 @@ class theUserForm(ModelForm):
 
 
 
+
+
 #想办法取出多选框的选项
 #querylist <QuerySet [{'category_keyname': '人力资源'}, {'category_keyname': '人力资源'}, {'category_keyname': '后端'}, {'category_keyname': '前端'}, {'category_keyname': '前端'}, {'category_keyname': '人力资源'}, {'category_keyname': '后端'}, {'category_keyname': '前端'}, {'category_keyname': '后端'}, {'category_keyname': 'Git'}, {'category_keyname': '后端'}, {'category_keyname': '服务器'}, {'category_keyname': '数据'}]>
 querylist = category.objects.all().order_by('category_keyname').distinct().values('category_keyname')
@@ -219,7 +222,6 @@ for qs in query_set:
     querybookcategory_choices.append((qs,qs))
 # querybookcategory_choices = [('人力资源', '人力资源'), ('后端', '后端')]
 print('querybookcategory_choices',querybookcategory_choices)
-
 
 # querytheBookcategory_choices = [('', ''),('电子书', '电子书'), ('纸质书', '纸质书')]
 querytheBookcategory_list = theBook.objects.all().order_by('theBook_type').distinct().values('theBook_type')
