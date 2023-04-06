@@ -213,6 +213,8 @@ class theUserForm(ModelForm):
 #想办法取出多选框的选项
 #querylist <QuerySet [{'category_keyname': '人力资源'}, {'category_keyname': '人力资源'}, {'category_keyname': '后端'}, {'category_keyname': '前端'}, {'category_keyname': '前端'}, {'category_keyname': '人力资源'}, {'category_keyname': '后端'}, {'category_keyname': '前端'}, {'category_keyname': '后端'}, {'category_keyname': 'Git'}, {'category_keyname': '后端'}, {'category_keyname': '服务器'}, {'category_keyname': '数据'}]>
 querylist = category.objects.all().order_by('category_keyname').distinct().values('category_keyname')
+# querylist2 <QuerySet [('Git',), ('人力资源',), ('前端',), ('后端',), ('数据',), ('服务器',)]>
+# querylist2 = category.objects.all().order_by('category_keyname').distinct().values_list('category_keyname')
 query_set = set()
 querybookcategory_choices = [('',''),]
 for q in querylist:
