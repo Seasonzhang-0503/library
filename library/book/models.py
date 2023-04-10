@@ -100,7 +100,6 @@ class theBorrow(models.Model):
     class Meta:
         verbose_name = ('借订')
         verbose_name_plural = ('借订')
-        # ordering = ['theBorrow_add_datetime'] # 返回值排序
         unique_together = [['theBorrow_theUser','theBorrow_theBook']] # 联合唯一
 
 

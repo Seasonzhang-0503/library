@@ -112,6 +112,7 @@ class theBorrowModalAddForm(ModelForm):
         exclude = ['theBorrow_status2','theBorrow_status3',]
 
         widgets = {
+            
         }
         
     # 循环找到所有的插件,加入css样式,添加 "class": "form-control"
@@ -139,13 +140,11 @@ class theBorrowModalShowForm(ModelForm):
         exclude = ['theBorrow_status2','theBorrow_status3',]
  
         widgets = {
-            "theBorrow_add_datetime":wid.SelectDateWidget(attrs={"type":"date","class":'ml-3 edit'}), #还可以自定义属性
-            "theBorrow_update_datetime":wid.SelectDateWidget(attrs={"type":"date","class":'ml-3 edit'}), #还可以自定义属性
-            "theBorrow_theUser":wid.Select(attrs={"class":'edit'}),
+            "theBorrow_theUser":wid.Select(attrs={"class":'edit',"readonly":'true'}),
             "theBorrow_theBook":wid.Select(attrs={"class":'edit'}),
             "theBorrow_duration":wid.NumberInput(attrs={"class":'edit'}),
             "theBorrow_status1":wid.Select(attrs={"class":'edit'}),
-        }   
+        } 
 
     # 循环找到所有的插件,加入css样式,添加 "class": "form-control"
     bootstrap_exclude_fields = []
