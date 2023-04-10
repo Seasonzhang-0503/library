@@ -73,6 +73,11 @@ urlpatterns = [
     path('user_logout/', views.user_logout, name='user_logout'),
 
 
+    # SQL
+    path('practice_query_rowsql/', views.practice_query_rowsql, name='practice_query_rowsql'),
+    path('my_custom_sql/', views.my_custom_sql, name='my_custom_sql'),
+
+
     
     ##　静态文件夹路由：读取"/static/"的数据
     re_path('static/(?P<path>.*)', serve, {'document_root':settings.STATIC_ROOT},name='static'),

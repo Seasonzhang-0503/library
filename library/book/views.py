@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http import HttpResponseRedirect,JsonResponse
+from django.http import HttpResponseRedirect,JsonResponse,HttpResponse
 from django import forms
 from .models import *
 from .forms import *
@@ -22,7 +22,9 @@ def home(request):
 
 
 def categorylist_show(request):    
-    categorylist = category.objects.all()
+    # categorylist = category.objects.all()
+    # 练习原始SQL
+    categorylist = category.objects.raw('SELECT * FROM book_category')
     
     context = {
         'categorylist':categorylist,
@@ -536,3 +538,38 @@ def user_login(request):
 def user_logout(request):
     logout(request)
     return HttpResponseRedirect('/user_login/')
+
+
+# 练习原始SQL
+def practice_query_rowsql(request):
+    practice_query_rowsql = theBook.objects.raw('SELECT * FROM book_thebook')
+    for data in practice_query_rowsql:
+        print('practice_query_rowsql:',data,data.theBook_type)
+    return HttpResponse('练习原始sql')
+
+
+
+
+
+
+# 直接执行自定义 SQL
+# (2, '000001', 'Django基础教程(Tango with Django)', 5, 'images/tangowithdjango.png', '', '已借订', None, None, 'D:\\我的U盘-20220812\\ABE-Python\\4.python网页前后端\\Django基础教程', '', '', '', '', 3, '电子书')
+def dictfetchall(cursor):
+    "Return all rows from a cursor as a dict"
+    columns = [col[0] for col in cursor.description]
+    return [
+        dict(zip(columns, row))
+        for row in cursor.fetchall()
+    ]
+
+from django.db import connection
+def my_custom_sql(request):
+    with connection.cursor() as cursor:
+        cursor.execute("SELECT * FROM book_thebook")
+        rows = dictfetchall(cursor)
+        print(rows)
+        for row in rows:
+            print('row.theBook_name',row['theBook_name'])
+        
+    # return HttpResponse('rows',rows)
+    return HttpResponse('rows')
