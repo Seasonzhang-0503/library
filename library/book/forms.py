@@ -122,7 +122,7 @@ class theBorrowModalAddForm(ModelForm):
         }   
         
     # 循环找到所有的插件,加入css样式,添加 "class": "form-control"
-    bootstrap_exclude_fields = ['theBorrow_datetime']
+    bootstrap_exclude_fields = []
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         # 循环ModelForm中的所有字段,给每个字段的插件设置
@@ -144,18 +144,18 @@ class theBorrowModalShowForm(ModelForm):
         model = theBorrow
         fields = '__all__'
         exclude = ['theBorrow_status2','theBorrow_status3',]
-
+ 
         widgets = {
-            "theBorrow_datetime":wid.SelectDateWidget(attrs={"type":"date","class":'ml-3'}), #还可以自定义属性
-            # "theBorrow_datetime":wid.DateTimeInput(attrs={"type":"text"}),
-            "theBorrow_theUser":wid.Select(attrs={"readonly":"true"}),
-            "theBorrow_theBook":wid.Select(attrs={"readonly":"true"}),
-            "theBorrow_duration":wid.NumberInput(attrs={"readonly":"true"}),
-            "theBorrow_status1":wid.Select(attrs={"readonly":"true"}),
+            "theBorrow_add_datetime":wid.SelectDateWidget(attrs={"type":"date","class":'ml-3 edit'}), #还可以自定义属性
+            "theBorrow_update_datetime":wid.SelectDateWidget(attrs={"type":"date","class":'ml-3 edit'}), #还可以自定义属性
+            "theBorrow_theUser":wid.Select(attrs={"class":'edit'}),
+            "theBorrow_theBook":wid.Select(attrs={"class":'edit'}),
+            "theBorrow_duration":wid.NumberInput(attrs={"class":'edit'}),
+            "theBorrow_status1":wid.Select(attrs={"class":'edit'}),
         }   
-        
+
     # 循环找到所有的插件,加入css样式,添加 "class": "form-control"
-    bootstrap_exclude_fields = ['theBorrow_datetime']
+    bootstrap_exclude_fields = []
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         # 循环ModelForm中的所有字段,给每个字段的插件设置

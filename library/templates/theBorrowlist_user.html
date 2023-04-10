@@ -33,7 +33,7 @@
                     <td>
                         <!-- <a class="btn btn-primary btn-xs" href="/theBorrowlist_edit/{{ theBorrow.boid }}/">编辑</a> -->
                         <button type="button" id='btnEdit' class="btn btn-primary btnEdit"  boid="{{ theBorrow.boid }}">
-                            查看
+                            编辑
                         </button>
                     </td>
                 </tr>
@@ -156,18 +156,17 @@
                 },
                 dataType: "JSON",
                 success: function (res) {
+                    console.log('res',res)
                     if (res.status) {
+                        $("#formSave2")[0].reset();
                         $.each(res.data, function (name, value) {
-                            //列出例外情形
-                            if(name=='theBorrow_datetime'){
-                                value = value.split('T')[0]
-                            }
-                            $("#id_" + name).val(value);
-                            console.log(name,value)
+                            //同时选择edit类和id
+                            $(".edit#id_" + name).val(value);
+                            console.log('edit:',name,value)
                         });
                         
                         // 显示对话框
-                        $("#myModal2").modal('show');                        
+                        $("#myModal2").modal('show');                      
                     } else {
                         alert(res.error);
                         $("#myModal2").modal('hide');
