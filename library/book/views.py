@@ -8,6 +8,10 @@ from django.views.decorators.csrf import csrf_exempt
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.hashers import make_password, check_password
+import json
+from django.shortcuts import render, HttpResponse
+from django.http import JsonResponse
+
 
 
 
@@ -573,3 +577,92 @@ def my_custom_sql(request):
         
     # return HttpResponse('rows',rows)
     return HttpResponse('rows')
+
+
+
+
+
+def chart_list(request):
+    """ 数据统计 """
+    return render(request, 'chart_list.html')
+
+
+
+
+def chart_line(request):
+    """ 构造折线图的数据 """
+    # 数据可以去数据库中获取
+    legend = ['天津分公司', '北京分公司']
+    xAxis = ['1月', '2月', '3月', '4月', '5月', '6月', '7月']
+    series_list = [
+            {
+                'name': '天津分公司',
+                'type': 'line',
+                'data': [520, 132, 101, 134, 90, 230, 210]
+            },
+            {
+                'name': '北京分公司',
+                'type': 'line',
+                'data': [220, 182, 191, 234, 290, 330, 310]
+            },
+            ]
+
+    result = {
+        "status": True,
+        "data": {
+            "legend": legend,
+            "xAxis": xAxis,
+            "series_list": series_list,
+        }
+    }
+
+    return JsonResponse(result)
+
+
+
+def chart_bar(request):
+    """ 构造柱状图的数据 """
+
+    # 数据可以去数据库中获取
+    legend = ['销量', '价格']
+    xAxis = ['1月', '2月', '3月', '4月', '5月', '6月']
+    series_list = [
+                {
+                    "name": '销量',
+                    "type": 'bar',
+                    "data": [5, 20, 36, 10, 10, 20]
+                },
+                {
+                    "name": '价格',
+                    "type": 'bar',
+                    "data": [25, 40, 80, 65, 70, 50]
+                }
+            ]
+
+    result = {
+        "status": True,
+        "data": {
+            "legend": legend,
+            "xAxis": xAxis,
+            "series_list": series_list,
+        }
+    }
+
+    return JsonResponse(result)
+
+
+
+def chart_pie(request):
+    """ 构造饼图的数据 """
+    data_list = [
+                    { "value": 10, "name": '销售部' },
+                    { "value": 735, "name": '运营部' },
+                    { "value": 580, "name": '财务部' },
+                ]
+
+    result = {
+        "status": True,
+        "data_list": data_list,
+    }
+
+    return JsonResponse(result)

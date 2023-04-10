@@ -78,6 +78,12 @@ urlpatterns = [
     path('my_custom_sql/', views.my_custom_sql, name='my_custom_sql'),
 
 
+    # 数据统计
+    path('chart/list/', views.chart_list),
+    path('chart/line/', views.chart_line),
+    path('chart/bar/', views.chart_bar),
+    path('chart/pie/', views.chart_pie),
+
     
     ##　静态文件夹路由：读取"/static/"的数据
     re_path('static/(?P<path>.*)', serve, {'document_root':settings.STATIC_ROOT},name='static'),
