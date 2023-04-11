@@ -20,6 +20,8 @@ class User(AbstractUser):
     class Meta(AbstractUser.Meta):
         swappable = 'AUTH_USER_MODEL'
 
+    def __str__(self):
+        return str(self.username)
 
 
 class location(models.Model):
@@ -80,7 +82,7 @@ class theBook(models.Model):
 
 
     def __str__(self):
-        return str(self.theBook_name)
+        return str(self.theBook_category)+str(self.theBook_name)
 
 
 

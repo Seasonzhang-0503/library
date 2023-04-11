@@ -451,6 +451,7 @@ def theBorrowlist_user_modal_show(request):
     row_obj = theBorrow.objects.filter(boid=boid).values("boid", "theBorrow_add_datetime", "theBorrow_theUser",
                                                          'theBorrow_theBook','theBorrow_duration','theBorrow_status1'
                                                          ).first()
+
     
     if not row_obj:
         return JsonResponse({"status": False, "error": "数据不存在!","boid":boid})
