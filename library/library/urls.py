@@ -67,6 +67,7 @@ urlpatterns = [
     path('theBorrowlist_user_modal_show/', views.theBorrowlist_user_modal_show, name='theBorrowlist_user_modal_show'),
     path('theBorrowlist_user_modal_new/', views.theBorrowlist_user_modal_new, name='theBorrowlist_user_modal_new'),
     path('theBorrowlist_user_modal_save/', views.theBorrowlist_user_modal_save, name='theBorrowlist_user_modal_save'),
+    path('theBorrowlist_user_modal_delete/', views.theBorrowlist_user_modal_delete, name='theBorrowlist_user_modal_delete'),
 
 
 

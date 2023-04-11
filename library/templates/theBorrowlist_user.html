@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block body_block %}
-<div class="container">
+<div class="container" id='app'>
     <div class="row py-4 align-items-center">
         
         <!--展示显示人员-->
@@ -31,10 +31,8 @@
                     <td>{{ theBorrow.theBorrow_theBook }}</td>
                     <td>{{ theBorrow.theBorrow_status1 }}</td>
                     <td>
-                        <!-- <a class="btn btn-primary btn-xs" href="/theBorrowlist_edit/{{ theBorrow.boid }}/">编辑</a> -->
-                        <button type="button" id='btnEdit' class="btn btn-primary btnEdit"  boid="{{ theBorrow.boid }}">
-                            编辑
-                        </button>
+                        <button type="button" class="btn btn-primary btnEdit"  boid="{{ theBorrow.boid }}">编辑</button>
+                        <button type="button" class="btn btn-secondary btnDelete"  boid="{{ theBorrow.boid }}">删除</button>
                     </td>
                 </tr>
                 {% endfor %}
@@ -140,6 +138,7 @@
     $(function(){
         doAdd();
         doEdit();
+        doDelete();
     })
 
     
@@ -178,12 +177,39 @@
     }
 
 
+    function doDelete(){
+        $(".btnDelete").click(function(){
+
+            var boid = $(this).attr("boid")
+            console.log('Delete-boid',boid)
+
+            $.ajax({
+                url: "/theBorrowlist_user_modal_delete/",
+                type: "get",
+                data:{
+                    boid : boid,
+                },
+                dataType: "JSON",
+                success: function (res) {
+                    if (res.status) {
+                        console.log('Delete',res.status)
+                        // 刷新页面
+                        location.reload();
+                    } else {
+                        alert('Delete失败')
+                        console.log('Delete',res.status)
+                    }
+                }
+            })
+        });
+    }
+
     function doEdit(){
         //弹出
         $(".btnEdit").click(function(){
 
             var boid = $(this).attr("boid")
-            console.log('boid',boid)
+            console.log('Edit-boid',boid)
 
             $.ajax({
                 url: "/theBorrowlist_user_modal_show/",
@@ -213,10 +239,6 @@
 
         //保存变更
         $("#btnSave2").click(function(){
-
-            // var boid = $(this).attr("boid")
-            // console.log('boid',boid)
-
             $.ajax({
                 url: "/theBorrowlist_user_modal_save/",
                 type: "post",
@@ -226,8 +248,11 @@
                     console.log('res',res)
                     if (res.status) {
                         // 显示对话框
-                        $("#myModal2").modal('hide');                      
+                        $("#myModal2").modal('hide');
+                        // 刷新页面
+                        location.reload();                
                     } else {
+                        alert(res.error);
                         // 显示对话框
                         $("#myModal2").modal('show');
                     }
@@ -236,7 +261,7 @@
             });
     }
 
-
-
   </script>
+
+
 {% endblock %}

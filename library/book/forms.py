@@ -133,7 +133,7 @@ class theBorrowModalAddForm(ModelForm):
 
 
 class theBorrowModalShowForm(ModelForm):
-    boid = forms.CharField(label='boid',widget=wid.Input(attrs={"class":'edit'}))
+    boid = forms.CharField(label='boid',widget=wid.Input(attrs={"class":'edit','readonly':True}))
     # theBorrow_add_datetime = forms.CharField(label='theBorrow_add_datetime',widget=wid.Input(attrs={"class":'edit'}))
     class Meta:
         model = theBorrow
