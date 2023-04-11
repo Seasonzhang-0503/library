@@ -114,8 +114,17 @@
 
                     <form method="post" id="formSave2" enctype="multipart/form-data">
                         <div>
+                            {{ ShowForm.boid.label }}
+                            {{ ShowForm.boid }}
+                            {{ ShowForm.theBorrow_status1.label }}
+                            {{ ShowForm.theBorrow_status1 }}
 
-                            {% for item in ShowForm %}
+                            {% for field in ShowForm %}
+                            {{ field }}
+                            {% endfor %}
+
+
+                            <!-- {% for item in ShowForm %}
                             <div class="col-12">
                                 <div class="form-group" style="position: relative; margin-top: 5px">
                                     <label>{{ item.label }}</label>
@@ -123,7 +132,7 @@
                                     <span class="error_msg" style="color: red;position: absolute;">{{ item.errors.0 }}</span>
                                 </div>
                             </div>
-                            {% endfor %}
+                            {% endfor %} -->
                         </div>
                     </form>
 
@@ -162,15 +171,8 @@
     
     function doAdd(){
         $(".btnAdd").click(function(){
-            $.ajax({
-                url: "/theBorrowlist_user_modal_new/",
-                type: "get",
-                dataType: "JSON",
-                success: function (res) {
-                    $("#formSave1")[0].reset();
-                    $("#myModal1").modal('show');
-                }
-            })
+            $("#formSave1")[0].reset();
+            $("#myModal1").modal('show');
         });
         $("#btnSave1").click(function(){
             $.ajax({
