@@ -179,6 +179,7 @@
 
 
     function doEdit(){
+        //弹出
         $(".btnEdit").click(function(){
 
             var boid = $(this).attr("boid")
@@ -198,9 +199,8 @@
                         $.each(res.data, function (name, value) {
                             //同时选择edit类和id
                             $(".edit#id_" + name).val(value);
-                            console.log('edit:',name,value)
+                            console.log('edit-show:',name,value)
                         });
-                        
                         // 显示对话框
                         $("#myModal2").modal('show');                      
                     } else {
@@ -210,6 +210,30 @@
                 }
             })
         });
+
+        //保存变更
+        $("#btnSave2").click(function(){
+
+            // var boid = $(this).attr("boid")
+            // console.log('boid',boid)
+
+            $.ajax({
+                url: "/theBorrowlist_user_modal_save/",
+                type: "post",
+                data: $("#formSave2").serialize(),
+                dataType: "JSON",
+                success: function (res) {
+                    console.log('res',res)
+                    if (res.status) {
+                        // 显示对话框
+                        $("#myModal2").modal('hide');                      
+                    } else {
+                        // 显示对话框
+                        $("#myModal2").modal('show');
+                    }
+                }
+            })
+            });
     }
 
 

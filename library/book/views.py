@@ -417,28 +417,6 @@ def theBorrowlist_user(request):
 
 
 
-@csrf_exempt
-def theBorrowlist_user_modal_show(request):
-
-    boid = request.GET.get('boid')
-    print('得到boid',boid)
-    # values方法形成一个对象
-    row_obj = theBorrow.objects.filter(boid=boid).values("boid", "theBorrow_add_datetime", "theBorrow_theUser",
-                                                         'theBorrow_theBook','theBorrow_duration','theBorrow_status1'
-                                                         ).first()
-
-    if not row_obj:
-        return JsonResponse({"status": False, "error": "数据不存在!"})
-    
-    # 从数据库中获取到一个对象 row_object
-    result = {
-        "status": True,
-        "data": row_obj,
-    }
-    print('result',result)
-
-    return JsonResponse(result)
-
 
 
 @csrf_exempt
@@ -448,9 +426,58 @@ def theBorrowlist_user_modal_new(request):
     if form.is_valid():
         print('is_valid',request.POST)
         form.save()
-        return HttpResponse(json.dumps({"status": True,"error":'fail',}))
+        return JsonResponse({"status": True,"error":'fail',})
 
     return JsonResponse({"status": False,"error":'fail',})
+
+
+
+@csrf_exempt
+def theBorrowlist_user_modal_show(request):
+
+    boid = request.GET.get('boid')
+    print('得到boid',boid)
+
+    # values方法形成一个对象
+    row_obj = theBorrow.objects.filter(boid=boid).values("boid", "theBorrow_add_datetime", "theBorrow_theUser",
+                                                         'theBorrow_theBook','theBorrow_duration','theBorrow_status1'
+                                                         ).first()
+    
+    if not row_obj:
+        return JsonResponse({"status": False, "error": "数据不存在!","boid":boid})
+    else:
+        # 从数据库中获取到一个对象 row_object
+        result = {
+            "status": True,
+            "data": row_obj,
+            "boid":boid,
+        }
+        print('result',result)
+
+        return JsonResponse(result)
+
+
+@csrf_exempt
+def theBorrowlist_user_modal_save(request):
+    data = request.POST
+    boid = request.POST.get('boid')
+    print('boid',boid)
+
+    # values方法形成一个对象
+    # row_obj = theBorrow.objects.filter(boid=boid).values("boid", "theBorrow_add_datetime", "theBorrow_theUser",'theBorrow_theBook','theBorrow_duration','theBorrow_status1').first()
+    row_obj = theBorrow.objects.filter(boid=boid).first()
+
+    if not row_obj:
+        return JsonResponse({"status": False, "error": "数据不存在!"})
+    print('row_obj',row_obj)
+
+    form = theBorrowModalShowForm(data=data,instance=row_obj)
+    if form.is_valid():
+        print('is_valid',request.POST)
+        form.save()
+        return JsonResponse({"status": True,"error":'fail-valid',})
+
+    return JsonResponse({"status": False,"error":'fail-invalid',})
 
 
 

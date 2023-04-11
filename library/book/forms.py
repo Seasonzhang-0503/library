@@ -133,17 +133,19 @@ class theBorrowModalAddForm(ModelForm):
 
 
 class theBorrowModalShowForm(ModelForm):
+    boid = forms.CharField(label='boid',widget=wid.Input(attrs={"class":'edit'}))
+    # theBorrow_add_datetime = forms.CharField(label='theBorrow_add_datetime',widget=wid.Input(attrs={"class":'edit'}))
     class Meta:
         model = theBorrow
         fields = '__all__'
         exclude = ['theBorrow_status2','theBorrow_status3',]
  
-        # widgets = {
-        #     "theBorrow_theUser":wid.Select(attrs={"class":'edit',"readonly":'true'}),
-        #     "theBorrow_theBook":wid.Select(attrs={"class":'edit'}),
-        #     "theBorrow_duration":wid.NumberInput(attrs={"class":'edit'}),
-        #     "theBorrow_status1":wid.Select(attrs={"class":'edit'}),
-        # } 
+        widgets = {
+            # "theBorrow_theUser":wid.Select(attrs={"class":'edit',"readonly":'true'}),
+            # "theBorrow_theBook":wid.Select(attrs={"class":'edit'}),
+            # "theBorrow_duration":wid.NumberInput(attrs={"class":'edit'}),
+            # "theBorrow_status1":wid.Select(attrs={"class":'edit'}),
+        } 
 
     # 循环找到所有的插件,加入css样式,添加 "class": "form-control"
     bootstrap_exclude_fields = []
