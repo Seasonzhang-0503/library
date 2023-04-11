@@ -399,21 +399,30 @@ def theUserlist_delete(request,id):
 
 
 
-def theBorrowlist_user(request):
+def theBorrowlist_user(request,page=1):
 
     theBorrowlist = theBorrow.objects.all()
     AddForm = theBorrowModalAddForm()
     ShowForm = theBorrowModalShowForm()
-    # EditForm = theBorrowModalEditForm()
         
     context = {
         'theBorrowlist':theBorrowlist,
         'AddForm':AddForm,
         'ShowForm':ShowForm,
-        # 'EditForm':EditForm,
     }
 
-    return render(request,'theBorrowlist_user.html',context)
+    # 添加分页功能
+    paginator = Paginator(theBorrowlist, 5)
+    try:
+        page_obj = paginator.page(page)
+    except PageNotAnInteger:
+        # 如果参数page 的数据类型不是整型，就返回第一页数据
+        page_obj = paginator.page(1)
+    except EmptyPage:
+        # 若用户访问的页数大于实际页数，则返回最后一页的数据
+        page_obj = paginator.page(paginator.num_pages) 
+
+    return render(request,'theBorrowlist_user.html',locals())
 
 
 

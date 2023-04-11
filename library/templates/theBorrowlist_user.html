@@ -22,7 +22,8 @@
                     </tr>
                 </thead>
             
-                {% for theBorrow in theBorrowlist %}
+                <!--for theBorrow in theBorrowlist-->
+                {% for theBorrow in page_obj %}
                 <tr valign="middle" style="color:Black;border-color:#E0E0E0;font-size:15px;"></tr>
                     <td>{{ theBorrow.boid }}</td>
                     <td>{{ theBorrow.theBorrow_add_datetime|date:"Y-m-d" }}</td>
@@ -40,7 +41,24 @@
             </table>
 
 
-        <!-- Button trigger modal -->
+            <!--分页功能-->
+            <div class="pagination">
+                <span class="step-links">
+                    {% if page_obj.has_previous %}
+                        <a href="/theBorrowlist_user/1/">&laquo; first</a>
+                        <a href="/theBorrowlist_user/{{ page_obj.previous_page_number }}/">previous</a>
+                    {% endif %}
+            
+                    <span class="current">
+                            {{ page_obj.number }} / {{ page_obj.paginator.num_pages }}
+                    </span>
+            
+                    {% if page_obj.has_next %}
+                        <a href="/theBorrowlist_user/{{ page_obj.next_page_number }}/">next</a>
+                        <a href="/theBorrowlist_user/{{ page_obj.paginator.num_pages }}/">last &raquo;</a>
+                    {% endif %}
+                </span>
+            </div>
 
   
         <!-- Modal -->
