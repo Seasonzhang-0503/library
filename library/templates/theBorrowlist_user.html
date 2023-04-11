@@ -140,7 +140,7 @@
        
         <!-- Modal -->
         <div class="modal fade" id="myModalDelete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
+            <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">是否确定删除?</h5>
@@ -221,12 +221,12 @@
 
             //获取当前行的ID
             DELETE_ID = $(this).attr("boid")
-            console.log('Delete-boid',DELETE_ID)
+            console.log('Delete-boid-unconfirmed',DELETE_ID)
 
         });
 
         $("#btnConfirmDelete").click(function(){
-            console.log('Delete-boid',DELETE_ID)
+            console.log('Delete-boid-confirmed',DELETE_ID)
             $.ajax({
                 url: "/theBorrowlist_user_modal_delete/",
                 type: "get",
@@ -252,14 +252,14 @@
         //弹出
         $(".btnEdit").click(function(){
 
-            var boid = $(this).attr("boid")
-            console.log('Edit-boid',boid)
+            EDIT_ID = $(this).attr("boid")
+            console.log('Edit-boid',EDIT_ID)
 
             $.ajax({
                 url: "/theBorrowlist_user_modal_show/",
                 type: "get",
                 data:{
-                    boid : boid,
+                    boid : EDIT_ID,
                 },
                 dataType: "JSON",
                 success: function (res) {
@@ -283,8 +283,9 @@
 
         //保存变更
         $("#btnSave2").click(function(){
+            console.log('EDIT_ID',EDIT_ID)
             $.ajax({
-                url: "/theBorrowlist_user_modal_save/",
+                url: "/theBorrowlist_user_modal_save/?boid="+EDIT_ID,
                 type: "post",
                 data: $("#formSave2").serialize(),
                 dataType: "JSON",

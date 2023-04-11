@@ -471,7 +471,7 @@ def theBorrowlist_user_modal_show(request):
 def theBorrowlist_user_modal_save(request):
     data = request.POST
     print('save-data',data)
-    boid = request.POST.get('boid')
+    boid = request.GET.get('boid')
     print('save-boid',boid)
 
     # values方法形成一个对象
