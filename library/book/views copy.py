@@ -444,13 +444,13 @@ def theBorrowlist_user_modal_show(request):
 @csrf_exempt
 def theBorrowlist_user_modal_new(request):
     """ 新建 """
-    form = theBorrowModalAddForm(data=request.POST)
+    form = OrderModelForm(data=request.POST)
     if form.is_valid():
-        print('is_valid',request.POST)
         form.save()
-        return HttpResponse(json.dumps({"status": True,"error":'fail',}))
+        return HttpResponse(json.dumps({"status": True}))
 
-    return JsonResponse({"status": False,"error":'fail',})
+
+    return JsonResponse({"status": True,"error":'fail',})
 
 
 

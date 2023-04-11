@@ -76,7 +76,7 @@
                 </div>
                 <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
-                <button type="button" id="btnSave1" class="btn btn-primary btnSave1">保存</button>
+                <button type="button" class="btn btn-primary btnSave1">保存</button>
                 </div>
             </div>
             </div>
@@ -114,7 +114,7 @@
                 </div>
                 <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
-                <button type="button" id="btnSave2" class="btn btn-primary btnSave2">保存</button>
+                <button type="button" class="btn btn-primary btnSave2">保存</button>
                 </div>
             </div>
             </div>
@@ -141,42 +141,6 @@
         doAdd();
         doEdit();
     })
-
-    
-    function doAdd(){
-        $(".btnAdd").click(function(){
-            $.ajax({
-                url: "/theBorrowlist_user_modal_new/",
-                type: "get",
-                dataType: "JSON",
-                success: function (res) {
-                    $("#formSave1")[0].reset();
-                    $("#myModal1").modal('show');
-                }
-            })
-        });
-        $("#btnSave1").click(function(){
-            $.ajax({
-                url: "/theBorrowlist_user_modal_new/",
-                type: "post",
-                data: $("#formSave1").serialize(),
-                dataType: "JSON",
-                success: function (res) {
-                    if (res.status) {
-                        $("#myModal1").modal('hide');
-                        console.log('#btnSave1',res.status)
-                        // 刷新页面
-                        location.reload();
-                    } else {
-                        alert('form invalid')
-                        $("#myModal1").modal('show');
-                        console.log('#btnSave1',res.status)
-                    }
-                }
-            })
-        });
-    }
-
 
     function doEdit(){
         $(".btnEdit").click(function(){
@@ -206,6 +170,30 @@
                     } else {
                         alert(res.error);
                         $("#myModal2").modal('hide');
+                    }
+                }
+            })
+        });
+    }
+
+
+    
+    function doAdd(){
+        $(".btnAdd").click(function(){
+            $.ajax({
+                url: "/theBorrowlist_user_modal_new/",
+                type: "get",
+                dataType: "JSON",
+                success: function (res) {
+                    if (res.status) {
+                        //清空历史信息
+                        $("#formSave1")[0].reset();
+                        $("#myModal1").modal('show');
+                    } else {
+                        alert(res.error);
+                        $("#myModal1").modal('hide');
+                        // 刷新页面
+                        location.reload();
                     }
                 }
             })
