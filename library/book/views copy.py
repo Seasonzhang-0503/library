@@ -477,12 +477,16 @@ def theBorrowlist_user_modal_save(request):
     # row_obj = theBorrow.objects.filter(boid=boid).values("boid", "theBorrow_add_datetime", "theBorrow_theUser",'theBorrow_theBook','theBorrow_duration','theBorrow_status1').first()
     row_obj = theBorrow.objects.filter(boid=boid).first()
 
-
     if not row_obj:
         return JsonResponse({"status": False, "error": "数据不存在!"})
     print('row_obj',row_obj)
 
     form = theBorrowModalShowForm(data=data,instance=row_obj)
+    # author = form.save(commit=False)
+    # author.theBorrow_theUser = row_obj.theBorrow_theUser
+    # author.theBorrow_theBook = row_obj.theBorrow_theBook
+    # author.theBorrow_duration = row_obj.theBorrow_duration
+    # author.save()
     if form.is_valid():
         print('is_valid',request.POST)
         form.save()

@@ -141,11 +141,10 @@ class theBorrowModalShowForm(ModelForm):
         exclude = ['theBorrow_status2','theBorrow_status3',]
  
         widgets = {
-            # "theBorrow_theUser":wid.Select(attrs={"class":'edit',"readonly":'true'}),
-            # "theBorrow_theBook":wid.Select(attrs={"class":'edit'}),
-            # "theBorrow_duration":wid.NumberInput(attrs={"class":'edit'}),
-            # "theBorrow_status1":wid.Select(attrs={"class":'edit'}),
-        } 
+            "theBorrow_theUser":wid.Select(attrs={"class":'edit',"readonly":'true'}),
+            "theBorrow_theBook":wid.Select(attrs={"class":'edit',"readonly":'true'}),
+            "theBorrow_duration":wid.NumberInput(attrs={"class":'edit',"readonly":'true'}),#disabled
+        }
 
     # 循环找到所有的插件,加入css样式,添加 "class": "form-control"
     bootstrap_exclude_fields = []
