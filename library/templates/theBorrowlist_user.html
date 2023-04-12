@@ -117,7 +117,8 @@
                             <div class="col-12">
                                 <div class="form-group" style="position: relative; margin-top: 5px">
                                     <label >名字</label>
-                                    <input class="form-control" type="text" id="theBorrow_theUser" readonly >                  
+                                    <input class="form-control" type="text" id="theBorrow_theUser" readonly >   
+                                    <!-- <label  type="text" id="theBorrow_theUser"></label>     -->
                                 </div>
                             </div>
 
@@ -281,6 +282,7 @@
                         $("#formSave2")[0].reset();
                         //额外传值
                         $("#theBorrow_theUser").val(res.readonly_data.theBorrow_theUser);
+                        // $("#theBorrow_theUser").text(res.readonly_data.theBorrow_theUser);
                         $("#theBorrow_theBook").val(res.readonly_data.theBorrow_theBook);
                         //表单循环赋值
                         $.each(res.data, function (name, value) {
