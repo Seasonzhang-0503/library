@@ -4,6 +4,8 @@ from django.forms import ModelForm
 from .models import *
 from django.forms import widgets as wid  #因为重名，所以起个别名
 from django.forms.widgets  import  SelectDateWidget
+from django.core.exceptions import ValidationError
+from django.contrib.auth.hashers import make_password, check_password
 
 class locationForm(ModelForm):
     class Meta:
@@ -164,6 +166,14 @@ class theBorrowModalShowForm(ModelForm):
                     "class": "form-control"+ ' ' + 'edit',
                 }
 
+    # 数据校验: 验证方式2
+    def clean_theBorrow_status1(self):
+        theBorrow_status1 = self.cleaned_data['theBorrow_status1']
+        if theBorrow_status1 == '借订中':
+            # 验证不通过
+            raise ValidationError('只能填写借订中')
+        # 验证通过
+        return theBorrow_status1
 
 
 
@@ -200,7 +210,39 @@ class theUserForm(ModelForm):
                     "class": "form-control",
                 }
 
+    def clean_password(self):
+        pwd = self.cleaned_data.get("password")
+        # return什么.password字段保存什么
+        return make_password(pwd)
 
+
+
+class theUserNoPasswordForm(ModelForm):
+    class Meta:
+        model = User
+        fields = ['username','dept','age','mobilenumber','role','theUser_status1',]
+        exclude = []
+
+        labels= {
+            "username":"用户名",
+        }
+
+        
+    # 循环找到所有的插件,加入css样式,添加 "class": "form-control"
+    bootstrap_exclude_fields = []
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # 循环ModelForm中的所有字段,给每个字段的插件设置
+        for name, field in self.fields.items():
+            if name in self.bootstrap_exclude_fields:
+                continue
+            # class属性追加form-control，其他属性保留
+            if field.widget.attrs:
+                field.widget.attrs["class"] = field.widget.attrs.get('class','') + ' ' + 'form-control'
+            else:
+                field.widget.attrs = {
+                    "class": "form-control",
+                }
 
 
 

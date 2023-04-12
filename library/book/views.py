@@ -369,7 +369,7 @@ def theUserlist_edit(request,id):
     row_obj = User.objects.filter(id=id).first()
 
     if request.method == "GET":
-        form = theUserForm(instance=row_obj)
+        form = theUserNoPasswordForm(instance=row_obj)
         # 判断是否存在借订记录
         theUser_fk_theBorrow_fk_theBook = []
         for fk in row_obj.theborrow_set.all():
@@ -379,7 +379,7 @@ def theUserlist_edit(request,id):
         return render(request,'theUserlist_edit.html',{'form':form,'theUser_fk_theBorrow_fk_theBook':theUser_fk_theBorrow_fk_theBook,})
     
     # 用户POST请求提交数据,需要进行数据校验
-    form = theUserForm(data=request.POST,files=request.FILES, instance=row_obj)
+    form = theUserNoPasswordForm(data=request.POST,files=request.FILES, instance=row_obj)
     if form.is_valid():
         # print(form.cleaned_data)
         
@@ -493,8 +493,7 @@ def theBorrowlist_user_modal_save(request):
         form.save()
         return JsonResponse({"status": True,"error":'fail-valid',})
     
-    return JsonResponse({"status": False,"error":'fail-invalid',})
-
+    return JsonResponse({"status": False,"error":'请检查借订状态',})
 
 
 
@@ -531,6 +530,8 @@ def user_login(request):
     '''2.django登录不成功，启动ldap登录'''
     '''3.用户不存在时,直接pass,不login'''
     '''不修改默认密码'''
+
+    #season7 123
 
     if request.method == 'POST':
         username = request.POST.get('username')

@@ -8,29 +8,42 @@
     <!--用户登录页面-->
     <div class="container">
         <div class="row">
-            <form class='col-6 m-5' id="login_form" action="" method="POST">
-                {% csrf_token %}
-                <div class="form-group">
-                  <label >Username/用户名</label>
-                  <input type="text" class="form-control" name="username"  size="30" placeholder="username">
+            <br>
+            <br>
+            <div class="card" style="width:50%;">
+                <div class="card-header">
+                  用户登录
                 </div>
-                <div class="form-group">
-                  <label >Password/密码</label>
-                  <input type="password" class="form-control" name="password" size="30" placeholder="password">
-                  <small id="emailHelp" class="form-text text-muted">We'll never share your message with anyone else.</small>
-                </div>
-                <!--增加登录信息错误提醒的开始-->
-                {% if user.is_authenticated %}
-                    correct
-                {% else %}
-                    {{ error }}
-                {% endif %}
-                <!--增加登录信息错误提醒的结束-->
-                <br>
-                <button type="submit" class="btn btn-primary" value="Submit">Submit</button>
+                <div class="card-body">
+                    <p class="card-text">
 
-                
-            </form>
+                        <form id="login_form" action="" method="POST">
+                            {% csrf_token %}
+                            <div class="form-group">
+                            <label >Username/用户名</label>
+                            <input type="text" class="form-control" name="username"  size="30" placeholder="username">
+                            </div>
+                            <div class="form-group">
+                            <label >Password/密码</label>
+                            <input type="password" class="form-control" name="password" size="30" placeholder="password">
+                            <small id="emailHelp" class="form-text text-muted">We'll never share your message with anyone else.</small>
+                            </div>
+                            <!--增加登录信息错误提醒的开始-->
+                            {% if user.is_authenticated %}
+                                correct
+                            {% else %}
+                                {{ error }}
+                            {% endif %}
+                            <!--增加登录信息错误提醒的结束-->
+                            <br>
+                            <button type="submit" class="btn btn-primary" value="Submit">Submit</button>  
+                        </form>
+                    </p>
+                  </div>
+              </div>
+
+
+
         </div>
     </div>
 
