@@ -32,13 +32,15 @@
                     <td>{{ theBorrow.theBorrow_theBook }}</td>
                     <td>{{ theBorrow.theBorrow_status1 }}</td>
                     <td>
-                        <button type="button" class="btn btn-primary btnEdit"  boid="{{ theBorrow.boid }}">编辑</button>
-                        <button type="button" class="btn btn-secondary btnDelete"  boid="{{ theBorrow.boid }}">删除</button>
+                        <button type="button" class="btn btn-primary btnEdit"  boid="{{ theBorrow.boid }}"><i class="fa fa-cog"></i> 编辑</button>
+                        <button type="button" class="btn btn-secondary btnDelete"  boid="{{ theBorrow.boid }}"><i class="fa fa-trash-o fa-lg"></i> 删除</button>
                     </td>
                 </tr>
                 {% endfor %}
                 
             </table>
+
+            <i class="fa fa-car" style="font-size:60px;color:red;"></i>
 
 
             <!--分页功能-->
