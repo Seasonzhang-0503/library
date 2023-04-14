@@ -6,6 +6,8 @@ from django.forms import widgets as wid  #因为重名，所以起个别名
 from django.forms.widgets  import  SelectDateWidget
 from django.core.exceptions import ValidationError
 from django.contrib.auth.hashers import make_password, check_password
+from .encrypt import *
+
 
 class locationForm(ModelForm):
     class Meta:
@@ -297,4 +299,18 @@ class LoginForm(forms.Form):
     def clean_password(self):
         pwd = self.cleaned_data.get("password")
         return pwd
+        # return md5(pwd)
 
+
+
+class AdminAddForm(ModelForm):
+    class Meta:
+        model = Admin
+        fields = ["username", "password","permission",]
+        widgets = {
+            "password": forms.PasswordInput
+        }
+
+    def clean_password(self):
+        pwd = self.cleaned_data.get("password")
+        return md5(pwd)

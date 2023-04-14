@@ -761,13 +761,36 @@ def admin_login(request):
 
 
 
-    def admin_logout(request):
-        """ 注销 """
+def admin_logout(request):
+    """ 注销 """
 
-        # 清除当前session
-        # request.session.clear()
-        # 清除指定session
-        del request.session['info'] 
+    # 清除当前session
+    # request.session.clear()
+    # 清除指定session
+    del request.session['info'] 
 
 
-        return redirect("/admin_login/")
+    return redirect("/admin_login/")
+
+
+
+def admin_add(request):
+    """添加管理员"""
+
+    if request.method == "GET":
+        form = AdminAddForm()
+        return render(request, "admin_add.html", {"form": form})
+
+    # 如果是POST请求
+    form = AdminAddForm(data=request.POST)
+    print('request.POST',request.POST)
+    context = {
+        "form": form,
+    }
+    
+    if form.is_valid():
+        form.save()
+        return redirect("/")
+
+    return render(request, "admin_add.html", context)
+

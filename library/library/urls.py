@@ -91,6 +91,8 @@ urlpatterns = [
 
     # admin自定义用户登录
     path('admin_login/', views.admin_login,name='admin_login'),
+    path('admin_logout/', views.admin_logout),
+    path('admin_add/', views.admin_add),
 
 
     
