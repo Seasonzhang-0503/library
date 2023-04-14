@@ -732,10 +732,6 @@ def chart_pie(request):
     return JsonResponse(result)
 
 
-# def getQueryBookForm(request):
-#     form_obj = QueryBookForm(auto_id=True)
-#     return render(request, 'theBooklist_query.html', {'form_obj':form_obj})
-
 
 def admin_login(request):
     """admin登录"""
@@ -754,6 +750,10 @@ def admin_login(request):
         	# 手动抛出错误显示在"password"字段下
             form.add_error("password", "用户名或密码错误")
             return render(request, 'admin_login.html', {"form": form})
+        
+        # 如果用户名密码正确
+        # 网站生成随机字符创,写到用户浏览器的cookie中,再写入到服务器的session中
+        request.session["info"] = {'id': admin_object.id, 'name': admin_object.username}
         return redirect("/")
 
     return render(request, 'admin_login.html', {"form": form})
