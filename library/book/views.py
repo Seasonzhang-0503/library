@@ -730,3 +730,30 @@ def chart_pie(request):
     }
 
     return JsonResponse(result)
+
+
+# def getQueryBookForm(request):
+#     form_obj = QueryBookForm(auto_id=True)
+#     return render(request, 'theBooklist_query.html', {'form_obj':form_obj})
+
+
+def admin_login(request):
+    """admin登录"""
+    print('admin_login')
+    if request.method == "GET":
+        form = LoginForm(auto_id=True)
+        return render(request, 'admin_login.html', {"form": form})
+
+    form = LoginForm(data=request.POST)
+    if form.is_valid():
+        # 去数据库校验用户名和密码是否正确
+        admin_object = Admin.objects.filter(**form.cleaned_data).first()
+        # print('**form.cleaned_data',**form.cleaned_data)
+        # 如果数据库中没有查询到数据
+        if not admin_object:
+        	# 手动抛出错误显示在"password"字段下
+            form.add_error("password", "用户名或密码错误")
+            return render(request, 'admin_login.html', {"form": form})
+        return redirect("/")
+
+    return render(request, 'admin_login.html', {"form": form})

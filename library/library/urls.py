@@ -88,6 +88,11 @@ urlpatterns = [
     path('chart/bar/', views.chart_bar),
     path('chart/pie/', views.chart_pie),
 
+
+    # admin自定义用户登录
+    path('admin_login/', views.admin_login,name='admin_login'),
+
+
     
     ##　静态文件夹路由：读取"/static/"的数据
     re_path('static/(?P<path>.*)', serve, {'document_root':settings.STATIC_ROOT},name='static'),

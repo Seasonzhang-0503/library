@@ -277,3 +277,24 @@ class QueryBookForm(forms.Form):
     querybooktype = forms.ChoiceField(label='图书类型',choices=querytheBookcategory_choices,)
 
 
+
+
+
+# 这一次不使用ModelForm,使用Form来实现
+class LoginForm(forms.Form):
+    username = forms.CharField(
+        label="用户名",
+        widget=forms.TextInput(attrs={"class": "form-control"}),
+        required=True,
+    )
+    password = forms.CharField(
+        label="用户名",
+        # render_value=True 表示当提交后,如果密码输入错误,不会自动清空密码输入框的内容
+        widget=forms.PasswordInput(attrs={"class": "form-control"}, ),
+        required=True,
+    )
+
+    def clean_password(self):
+        pwd = self.cleaned_data.get("password")
+        return pwd
+
