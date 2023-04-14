@@ -757,3 +757,17 @@ def admin_login(request):
         return redirect("/")
 
     return render(request, 'admin_login.html', {"form": form})
+
+
+
+
+    def admin_logout(request):
+        """ 注销 """
+
+        # 清除当前session
+        # request.session.clear()
+        # 清除指定session
+        del request.session['info'] 
+
+
+        return redirect("/admin_login/")
